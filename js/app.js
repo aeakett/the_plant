@@ -55,34 +55,79 @@ function bindStuffToSaveDetailButton(detailNum) {
 }
 
 
-function drawRoom() {
+function drawRoom() {console.log(roomStep);
+   if (roomStep!=numberOfRooms-1+3) {
+      $('#content').append('<div id="step'+roomStep+'"></div>');
+      $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
+      var edgeMatch=false;
+      for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
+         if (roomStep==0) {
+            var lastExit=0;
+         } else {
+            var lastExit=roomStack[roomStep-1].exits[1];
+         }
+         var thisEntry=roomStack[roomStep].exits[0];
+         if (rooms[roomStack[roomStep].number-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep].number-1].edgeLetters[i]==thisEntry) {
+            edgeMatch=true;
+         }
+      }
+      if (edgeMatch) {
+         $('#step'+roomStep).append('<p>&hellip;</p>');
+         $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
+      } else {
+         $('#step'+roomStep).append('<p>&hellip;</p>');
+         $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
+      }
+      $('#step'+roomStep).append('<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>');
+
+      $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
+      bindStuffToContinueButton(roomStep)
+
+      roomStep++;
+   } else {drawConclusion();}
+}
+
+function drawConclusion() {
    $('#content').append('<div id="step'+roomStep+'"></div>');
    $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
+
+   var conclusion;
+   if (anger > fear)          { conclusion = 'anger'; }
+   else if (fear > anger)     { conclusion = 'fear'; }
+   else if (lastInc=='anger') { conclusion = 'anger'; }
+   else if (lastInc=='fear')  { conclusion = 'fear'; }
+   else {
+      var fa = Math.floor(Math.random()*2);
+      if (fa==0)              { conclusion = 'anger'; }
+      else                    { conclusion = 'fear'; }
+   }
+
    var edgeMatch=false;
    for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
-      if (roomStep==0) {
-         var lastExit=0;
-      } else {
-         var lastExit=roomStack[roomStep-1].exits[1];
-      }
+      var lastExit=roomStack[roomStep-1].exits[1];
       var thisEntry=roomStack[roomStep].exits[0];
       if (rooms[roomStack[roomStep].number-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep].number-1].edgeLetters[i]==thisEntry) {
          edgeMatch=true;
       }
    }
-   if (edgeMatch) {
-      $('#step'+roomStep).append('<p>&hellip;</p>');
-      $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
-   } else {
-      $('#step'+roomStep).append('<p>&hellip;</p>');
-      $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
+
+   $('#step'+roomStep).append('<p>&hellip;</p>');
+   if (conclusion=='anger') {
+      if (edgeMatch) {
+         $('#step'+roomStep).append(outputGoto(31));
+      }
+      else {
+         $('#step'+roomStep).append(outputGoto(22));
+      }
+   } else { /* fear */
+      if (edgeMatch) {
+         $('#step'+roomStep).append(outputGoto(13));
+      }
+      else {
+         $('#step'+roomStep).append(outputGoto(17));
+      }
    }
-   $('#step'+roomStep).append('<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>');
-
-   $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
-   bindStuffToContinueButton(roomStep)
-
-   roomStep++;
+   $('#content').append('<p>Something that will make you cry goes here</p><p>the end</p>');
 }
 
 function bindStuffToContinueButton(step) {
