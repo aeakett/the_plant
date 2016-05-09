@@ -6,7 +6,7 @@ $(function() {
 var fear=0;
 var anger=0;
 var lastInc="neither";
-var room
+var room;
 var roomStep = 0;
 var roomStack = [];
 var numberOfRooms = 7;
@@ -64,23 +64,14 @@ function drawRoom() {
 
    $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
    bindStuffToContinueButton(roomStep)
-   /*$('#cont'+roomStep).click(function(){
-      var roomToTransfer = $('#step'+roomStep);
-      $('#step'+roomStep).css('background','green');
-      $('#step'+roomStep).detach();
-      $('#journal').append(roomToTransfer.html());
-      $(this).detach();
-      drawRoom();
-   });*/
 
    roomStep++;
 }
 
 function bindStuffToContinueButton(step) {
    $('#continueButton').click(function(){
-      var roomToTransfer = $('#step'+step).html();
-      $('#step'+step).detach();
-      $('#journal').append(roomToTransfer);
+      var roomToTransfer = $('#step'+step).detach();
+      roomToTransfer.appendTo('#journal');
       $(this).detach();
       drawRoom();
    });
