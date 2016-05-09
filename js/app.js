@@ -20,8 +20,6 @@ $(document).ready(function() {
       $('#journal').toggle();
    });
 
-   drawDetailQuestion();
-
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
       roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
@@ -32,7 +30,8 @@ $(document).ready(function() {
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
 
-   drawRoom();
+   drawDetailQuestion();
+/*   drawRoom();*/
 });
 
 function drawDetailQuestion(){console.log('drawing detail ...');
@@ -45,7 +44,7 @@ function drawDetailQuestion(){console.log('drawing detail ...');
       detailCandidates.splice(candidatePosition,1);
       bindStuffToSaveDetailButton('detail'+detailStep);
       detailStep++;
-   } else {console.log(detailStack);}
+   } else {drawRoom();}
 }
 function bindStuffToSaveDetailButton(detailNum) {
    $('#saveDetailButton').click(function(){
