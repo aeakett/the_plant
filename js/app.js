@@ -11,6 +11,8 @@ var roomStep = 0;
 var roomStack = [];
 var numberOfRooms = 7;
 var roomCandidates = [1,2,3,4,5,6,7,8,9,10];
+var detailStack = [];
+var detailStep=0;
 
 $(document).ready(function() {
    $('#journal').hide().removeClass('hidden');
@@ -18,12 +20,7 @@ $(document).ready(function() {
       $('#journal').toggle();
    });
 
-   var detailStack = [];
-   for (var i=0; i<10; i++) {
-      var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
-      detailStack.push(detailCandidates[candidatePosition]);
-      detailCandidates.splice(candidatePosition,1);
-   }
+   drawDetailQuestion();
 
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
@@ -37,6 +34,28 @@ $(document).ready(function() {
 
    drawRoom();
 });
+
+function drawDetailQuestion(){console.log('drawing detail ...');
+   if (detailStep!=10) {
+      var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
+      $('#content').append('<div id="detail'+detailStep+'"></div>');
+      $('#detail'+detailStep).append('<p>'+detailCandidates[candidatePosition].q+'</p>');
+      $('#detail'+detailStep).append('<textarea placeholder="'+detailCandidates[candidatePosition].e+'"></textarea>');
+      $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
+      detailCandidates.splice(candidatePosition,1);
+      bindStuffToSaveDetailButton('detail'+detailStep);
+      detailStep++;
+   } else {console.log(detailStack);}
+}
+function bindStuffToSaveDetailButton(detailNum) {
+   $('#saveDetailButton').click(function(){
+      var thisDetail = $('#'+detailNum+' > textarea').val();
+      detailStack.push(thisDetail);
+      $('#'+detailNum).detach();
+      drawDetailQuestion();
+   });
+}
+
 
 function drawRoom() {
    $('#content').append('<div id="step'+roomStep+'"></div>');
@@ -126,26 +145,26 @@ function generateExits() {
 }
 
 var detailCandidates = [
-   {"q":"[Condition] [hand tool].", "e":"<em>Broken vice grips.</em>"},
-   {"q":"[Condition] [subject] book.", "e":"<em>Well-loved history book.</em>"},
-   {"q":"[Condition] photograph of your daughter.", "e":"<em>Torn photo.</em>"},
-   {"q":"Smell of [subject].", "e":"<em>Smell of baking cookies.</em>"},
-   {"q":"Sound of [subject].", "e":"<em>Sound of a brass band.</em>"},
-   {"q":"Taste of [subject].", "e":"<em>Taste of gasoline.</em>"},
-   {"q":"[Emotion] [animal].", "e":"<em>Happy dog.</em>"},
-   {"q":"Your daughter’s [object].", "e":"<em>Her hockey trophy.</em>"},
-   {"q":"Memory of your daughter at [event].", "e":"<em>Prom.</em>"},
-   {"q":"Pool of [liquid].", "e":"<em>Pool of spilled apple juice.</em>"},
-   {"q":"[Condition] [item of clothing].", "e":"<em>Dirty sweater.</em>"},
-   {"q":"[Condition] [toy].", "e":"<em>New Transformer doll.</em>"},
-   {"q":"[Condition] letter to your daughter.", "e":"<em>Unopened letter.</em>"},
-   {"q":"Feeling of [subject] on the skin.", "e":"<em>Feel of metal.</em>"},
-   {"q":"[Emotion] [type of] person.", "e":"<em>Angry homeless person.</em>"},
-   {"q":"Your daughter’s voice whispering “[word]”.", "e":"<em>“Sorry”</em>"},
-   {"q":"Memory of your daughter when she was [age].", "e":"<em>21.</em>"},
-   {"q":"Sudden feeling of [Emotion].", "e":"<em>Feeling of joy.</em>"},
-   {"q":"Shadow in the shape of [object].", "e":"<em>Pterodactyl shadow.</em>"},
-   {"q":"Glimpse of your daughter in distance.", "e":"<em>Just a glimpse.</em>"}
+   {"q":"[Condition] [hand tool].", "e":"Broken vice grips."},
+   {"q":"[Condition] [subject] book.", "e":"Well-loved history book."},
+   {"q":"[Condition] photograph of your daughter.", "e":"Torn photo of your daughter."},
+   {"q":"Smell of [subject].", "e":"Smell of baking cookies."},
+   {"q":"Sound of [subject].", "e":"Sound of a brass band."},
+   {"q":"Taste of [subject].", "e":"Taste of gasoline."},
+   {"q":"[Emotion] [animal].", "e":"Happy dog."},
+   {"q":"Your daughter’s [object].", "e":"Her hockey trophy."},
+   {"q":"Memory of your daughter at [event].", "e":"Memory of her at prom."},
+   {"q":"Pool of [liquid].", "e":"Pool of spilled apple juice."},
+   {"q":"[Condition] [item of clothing].", "e":"Dirty sweater."},
+   {"q":"[Condition] [toy].", "e":"New Transformer doll."},
+   {"q":"[Condition] letter to your daughter.", "e":"Unopened letter to her."},
+   {"q":"Feeling of [subject] on the skin.", "e":"Feeling of metal on the skin."},
+   {"q":"[Emotion] [type of] person.", "e":"Angry homeless person."},
+   {"q":"Your daughter’s voice whispering “[word]”.", "e":"Her voice whispering “Sorry”."},
+   {"q":"Memory of your daughter when she was [age].", "e":"Memory of her when she was 21."},
+   {"q":"Sudden feeling of [emotion].", "e":"Sudden feeling of joy."},
+   {"q":"Shadow in the shape of [object].", "e":"Shadow in the shape of a Pterodactyl."},
+   {"q":"Glimpse of your daughter in distance.", "e":"Just a glimpse."}
 ];
 
 function incFearAnger (which) {
