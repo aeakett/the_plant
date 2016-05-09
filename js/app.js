@@ -79,7 +79,7 @@ function drawRoom() {
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
       }
 
-      $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
+      $('#step'+roomStep).append('<br><button type="button" id="continueButton">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
 
       var imageNumber=roomStack[roomStep].number;
