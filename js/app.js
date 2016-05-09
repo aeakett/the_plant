@@ -55,7 +55,7 @@ function bindStuffToSaveDetailButton(detailNum) {
 }
 
 
-function drawRoom() {console.log(roomStep);
+function drawRoom() {
    if (roomStep!=numberOfRooms-1+3) {
       $('#content').append('<div id="step'+roomStep+'"></div>');
       $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
@@ -72,13 +72,15 @@ function drawRoom() {console.log(roomStep);
          }
       }
       if (edgeMatch) {
-         $('#step'+roomStep).append('<p>&hellip;</p>');
+         $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
       } else {
-         $('#step'+roomStep).append('<p>&hellip;</p>');
+         $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
       }
       $('#step'+roomStep).append('<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>');
+      $('#step'+roomStep).append('<img src="img/'+roomStack[roomStep].number+'.svg">');
+      //$('#step'+roomStep).append('<img src="img/5.svg">');
 
       $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
@@ -111,7 +113,7 @@ function drawConclusion() {
       }
    }
 
-   $('#step'+roomStep).append('<p>&hellip;</p>');
+   $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
    if (conclusion=='anger') {
       if (edgeMatch) {
          $('#step'+roomStep).append(outputGoto(31));
@@ -127,7 +129,6 @@ function drawConclusion() {
          $('#step'+roomStep).append(outputGoto(17));
       }
    }
-   $('#content').append('<p>Something that will make you cry goes here</p><p>the end</p>');
 }
 
 function bindStuffToContinueButton(step) {
