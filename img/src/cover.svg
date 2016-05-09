@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="cover.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="3.8397163"
+     inkscape:cy="555.0615"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1145"
+     inkscape:window-height="602"
+     inkscape:window-x="2346"
+     inkscape:window-y="162"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       transform="matrix(1.25,0,0,-1.25,124.54724,889.84882)"
+       inkscape:label="the_plant"
+       id="g4144">
+      <text
+         id="text4146"
+         style="font-variant:normal;font-weight:900;font-stretch:normal;font-size:36px;font-family:'Black Gothic';-inkscape-font-specification:BlackGothicHPLHS;writing-mode:lr-tb;fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(1,0,0,-1,29.1917,555.6242)">
+        <tspan
+           id="tspan4148"
+           sodipodi:role="line"
+           y="0"
+           x="0 41.400002 83.195999 121.068 150.408 191.23199 229.536 273.92401 315.612">THE PLANT</tspan>
+      </text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4150"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="M 0,0 396,0 396,145 0,145 0,0 Z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4152"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 38,27 33,0 0,504 -33,0 0,-504 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4154"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 89,27 33,0 0,504 -33,0 0,-504 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4156"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 23,129 115,0 0,29 -115,0 0,-29 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4158"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 258,53 42,0 0,44 -42,0 0,-44 z" />
+      <g
+         transform="translate(258.8654,49.25)"
+         id="g4160">
+        <path
+           inkscape:connector-curvature="0"
+           id="path4162"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           d="m 0,0 16.01,17.036 0,9.482 5.971,0 2.225,-9.643 L 39.474,1.212 0,0 Z" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4164"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 317,52 42,0 0,44 -42,0 0,-44 z" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4166"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 18,490 133,0 0,49 -133,0 0,-49 z" />
+    </g>
+  </g>
+</svg>
