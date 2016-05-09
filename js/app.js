@@ -78,12 +78,13 @@ function drawRoom() {
          $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
       }
-      $('#step'+roomStep).append('<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>');
-      $('#step'+roomStep).append('<img src="img/'+roomStack[roomStep].number+'.svg">');
-      //$('#step'+roomStep).append('<img src="img/5.svg">');
 
       $('#content').append('<button type="button" id="continueButton">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
+
+      var imageNumber=roomStack[roomStep].number;
+      if (imageNumber==11) {imageNumber='down';}
+      $('#step'+roomStep).append('<img src="img/'+imageNumber+'.svg">');
 
       roomStep++;
    } else {drawConclusion();}
