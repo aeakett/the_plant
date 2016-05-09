@@ -31,10 +31,9 @@ $(document).ready(function() {
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
 
    drawDetailQuestion();
-/*   drawRoom();*/
 });
 
-function drawDetailQuestion(){console.log('drawing detail ...');
+function drawDetailQuestion(){
    if (detailStep!=10) {
       var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
       $('#content').append('<div id="detail'+detailStep+'"></div>');
@@ -102,7 +101,7 @@ function outputGoto(entry) {
    var retval=thisGoto.number;
    switch (thisGoto.type) {
       case 'detail':
-         retval = '<div class="detailCard">detail card</div>';
+         retval = '<div class="detailCard">'+detailStack.pop()+'</div>';
          retval += '<p><strong>'+thisGoto.question+'</strong></p><input/>';
          incFearAnger(thisGoto.gain);
          break;
