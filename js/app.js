@@ -91,9 +91,28 @@ function drawRoom() {
    } else {drawConclusion();}
 }
 
+$.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+    }
+});
+
 function bindStuffToClickForMore(oldImage, newImage) {
    $('.clickForMore').click(function(){
-      $('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg')
+      //$('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg');
+      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      $('img[src="img/'+oldImage+'.svg').addClass('animated fadeOut').one(animationEnd, function() {
+         $(this).attr('src', 'img/'+newImage+'.svg');
+         $(this).removeClass('animated fadeOut');
+         $(this).addClass('animated fadeIn').one(animationEnd,function(){
+            $(this).removeClass('animated fadeIn');
+         });
+      });
+//      $('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg');
+  //    $('img[src="img/'+oldImage+'.svg').addClass('animated fadeIn');
       $(this).next().removeClass('hide');
       $(this).addClass('hide');
       $('#continueButton').removeClass('hide');
