@@ -67,27 +67,37 @@ function drawRoom() {
             edgeMatch=true;
          }
       }
+
+      var imageNumber=roomStack[roomStep].number;
+      if (imageNumber==11) {imageNumber='down';}
+
       $('#step'+roomStep).append('<p class="clickForMore">'+animatedEllipsis()+'</p>');
-      $('.clickForMore').click(function(){
-         $(this).next().removeClass('hide');
-         $('.clickForMore').addClass('hide');
-         $('#continueButton').removeClass('hide');
-      });
+      
       if (edgeMatch) {
+         bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo)
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
       } else {
+         bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo)
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
       }
 
       $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
 
-      var imageNumber=roomStack[roomStep].number;
-      if (imageNumber==11) {imageNumber='down';}
+      
       $('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
 
       roomStep++;
    } else {drawConclusion();}
+}
+
+function bindStuffToClickForMore(oldImage, newImage) {
+   $('.clickForMore').click(function(){
+      $('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg')
+      $(this).next().removeClass('hide');
+      $(this).addClass('hide');
+      $('#continueButton').removeClass('hide');
+   });
 }
 
 function drawConclusion() {
