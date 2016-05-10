@@ -84,7 +84,7 @@ function drawRoom() {
 
       var imageNumber=roomStack[roomStep].number;
       if (imageNumber==11) {imageNumber='down';}
-      $('#step'+roomStep).append('<img src="img/'+imageNumber+'.svg">');
+      $('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
 
       roomStep++;
    } else {drawConclusion();}
