@@ -15,10 +15,6 @@ var detailStack = [];
 var detailStep=0;
 
 $(document).ready(function() {
-   $('#journal').hide().removeClass('hidden');
-   $('#journalToggle').click(function(){
-      $('#journal').toggle();
-   });
 
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
