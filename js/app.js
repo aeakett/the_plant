@@ -67,15 +67,19 @@ function drawRoom() {
             edgeMatch=true;
          }
       }
+      $('#step'+roomStep).append('<p class="clickForMore">'+animatedEllipsis()+'</p>');
+      $('.clickForMore').click(function(){
+         $(this).next().removeClass('hide');
+         $('.clickForMore').addClass('hide');
+         $('#continueButton').removeClass('hide');
+      });
       if (edgeMatch) {
-         $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
       } else {
-         $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
          $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
       }
 
-      $('#step'+roomStep).append('<br><button type="button" id="continueButton">Keep searching</button>');
+      $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
 
       var imageNumber=roomStack[roomStep].number;
@@ -111,6 +115,10 @@ function drawConclusion() {
    }
 
    $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
+   $('.clickForMore').click(function(){
+         $(this).next().removeClass('hide');
+         $('.clickForMore').addClass('hide');
+      });
    if (conclusion=='anger') {
       if (edgeMatch) {
          $('#step'+roomStep).append(outputGoto(31));
@@ -128,6 +136,8 @@ function drawConclusion() {
    }
 }
 
+function animatedEllipsis() {return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';}
+
 function bindStuffToContinueButton(step) {
    $('#continueButton').click(function(){
       var roomToTransfer = $('#step'+step).detach();
@@ -144,28 +154,38 @@ function outputGoto(entry) {
    var retval=thisGoto.number;
    switch (thisGoto.type) {
       case 'detail':
-         retval = '<div class="detailCard">'+detailStack.pop()+'</div>';
+         retval = '<div class="hide">';
+         retval += '<div class="detailCard">'+detailStack.pop()+'</div>';
          retval += '<p><strong>'+thisGoto.question+'</strong></p><input/>';
+         retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
       case 'regular':
-         retval = thisGoto.text;
+         retval = '<div class="hide">';
+         retval += thisGoto.text;
          retval += '<p><strong>'+thisGoto.question+'</strong></p><input/>';
+         retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
       case 'prev':
-         retval = thisGoto.text;
+         retval = '<div class="hide">';
+         retval += thisGoto.text;
+         retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
       case 'double':
-         retval = thisGoto.text1;
+         retval = '<div class="hide">';
+         retval += thisGoto.text1;
          retval += '<p><strong>'+thisGoto.question1+'</strong></p><input/>';
          retval += thisGoto.text2;
          retval += '<p><strong>'+thisGoto.question2+'</strong></p><input/>';
+         retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
       case 'end':
-         retval = thisGoto.text;
+         retval = '<div class="hide">';
+         retval += thisGoto.text;
+         retval += '</div>';
          break;
       default:
          //nothing
