@@ -13,6 +13,7 @@ var numberOfRooms = 7;
 var roomCandidates = [1,2,3,4,5,6,7,8,9,10];
 var detailStack = [];
 var detailStep=0;
+var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
 $(document).ready(function() {
 
@@ -26,7 +27,33 @@ $(document).ready(function() {
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
 
-   drawDetailQuestion();
+   $('#cover').click(function(){
+      $(this).addClass('animated fadeOut').one(animationEnd, function() {
+         $(this).addClass('hide').removeClass('animated fadeOut');
+         $('#intro').removeClass('hide').addClass('animated fadeIn')
+      });
+      
+   });
+
+   $('#intro').click(function(){
+      $(this).addClass('animated fadeOut').one(animationEnd, function() {
+         $(this).addClass('hide').removeClass('animated fadeOut');
+         $('.top-bar, .content.row').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
+            $(this).removeClass('animated fadeIn');
+         });
+      });
+      //drawDetailQuestion();
+      $('#content').append('<p>Before you start, you&rsquo;ll need to define a series of things that you might encounter in the plant.</p>');
+      $('#content').append('<p>On the following screens, fill in the details for the provided examples.</p>');
+      $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
+      $('#content').append('<button type="button" id="goToDetails">get started</button>');
+      $('#goToDetails').click(function(){
+         $('#content').empty();
+         drawDetailQuestion();
+      });
+   });
+
+
 });
 
 function drawDetailQuestion(){
@@ -91,20 +118,10 @@ function drawRoom() {
    } else {drawConclusion();}
 }
 
-/*$.fn.extend({
-    animateCss: function (animationName) {
-        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-            $(this).removeClass('animated ' + animationName);
-        });
-    }
-});*/
-
 function bindStuffToClickForMore(oldImage, newImage) {
    $('.clickForMore').css('cursor','pointer');
    $(document).on('click', '.clickForMore', function(event) {
    //$('.clickForMore').click(function(){
-      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
       $('img[src="img/'+oldImage+'.svg').addClass('animated fadeOut').one(animationEnd, function() {
          $(this).attr('src', 'img/'+newImage+'.svg');
          $(this).removeClass('animated fadeOut');
@@ -164,7 +181,11 @@ function drawConclusion() {
    }
 }
 
-function drawAnimatedEllipsis() {return '<img src="img/dots.svg"><!--<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>-->';}
+function drawAnimatedEllipsis() {
+   return '&hellip;';
+   //return '<img src="img/dots.svg">';
+   //return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';
+}
 
 function bindStuffToContinueButton(step) {
    $('#continueButton').click(function(){
