@@ -71,7 +71,7 @@ function drawRoom() {
       var imageNumber=roomStack[roomStep].number;
       if (imageNumber==11) {imageNumber='down';}
 
-      $('#step'+roomStep).append('<p class="clickForMore">'+animatedEllipsis()+'</p>');
+      $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
       
       if (edgeMatch) {
          bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo)
@@ -91,18 +91,19 @@ function drawRoom() {
    } else {drawConclusion();}
 }
 
-$.fn.extend({
+/*$.fn.extend({
     animateCss: function (animationName) {
         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         $(this).addClass('animated ' + animationName).one(animationEnd, function() {
             $(this).removeClass('animated ' + animationName);
         });
     }
-});
+});*/
 
 function bindStuffToClickForMore(oldImage, newImage) {
-   $('.clickForMore').click(function(){
-      //$('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg');
+   $('.clickForMore').css('cursor','pointer');
+   $(document).on('click', '.clickForMore', function(event) {
+   //$('.clickForMore').click(function(){
       var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
       $('img[src="img/'+oldImage+'.svg').addClass('animated fadeOut').one(animationEnd, function() {
          $(this).attr('src', 'img/'+newImage+'.svg');
@@ -111,8 +112,6 @@ function bindStuffToClickForMore(oldImage, newImage) {
             $(this).removeClass('animated fadeIn');
          });
       });
-//      $('img[src="img/'+oldImage+'.svg').attr('src', 'img/'+newImage+'.svg');
-  //    $('img[src="img/'+oldImage+'.svg').addClass('animated fadeIn');
       $(this).next().removeClass('hide');
       $(this).addClass('hide');
       $('#continueButton').removeClass('hide');
@@ -165,7 +164,7 @@ function drawConclusion() {
    }
 }
 
-function animatedEllipsis() {return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';}
+function drawAnimatedEllipsis() {return '<img src="img/dots.svg"><!--<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>-->';}
 
 function bindStuffToContinueButton(step) {
    $('#continueButton').click(function(){
