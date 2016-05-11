@@ -1,5 +1,13 @@
 /* put your styles here */
 
+@font-face {
+   font-family: 'black_gothic';
+   src: url('fonts/black-gothic.woff2') format('woff2'),
+        url('fonts/black-gothic.woff') format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
 .content {
    background-color: #fff;
 }
