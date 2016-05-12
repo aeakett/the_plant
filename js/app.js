@@ -27,17 +27,18 @@ $(document).ready(function() {
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
 
    $('#cover').click(function(){
-      $(this).addClass('animated fadeOut').one(animationEnd, function() {
+      $(this).addClass('animatedx fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
-         $('#intro').removeClass('hide').addClass('animated fadeIn')
+         $('#intro').removeClass('hide').addClass('animatedx fadeIn')
       });
       
    });
-
+// speedy speed speed for dev
+$('#cover').click();
    $('#intro').click(function(){
-      $(this).addClass('animated fadeOut').one(animationEnd, function() {
+      $(this).addClass('animatedx fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
-         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
+         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animatedx fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
          });
       });
@@ -47,14 +48,15 @@ $(document).ready(function() {
       $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
       $('#content').append('<button type="button" id="goToDetails">get started</button>');
       $('#goToDetails').click(function(){
-         $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
+         $('#content > *').addClass('animatedx fadeOut').one(animationEnd, function() {
             $('#content').empty();
             drawDetailQuestion();
          });
          
       });
    });
-
+// speedy speed speed for dev
+$('#intro').click(); $('#goToDetails').click();
 
 });
 
@@ -67,7 +69,7 @@ function drawDetailQuestion(){
       $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
       detailCandidates.splice(candidatePosition,1);
       bindStuffToSaveDetailButton('detail'+detailStep);
-      $('#detail'+detailStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+      $('#detail'+detailStep).removeClass('hide').addClass('animatedx fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       detailStep++;
@@ -77,17 +79,24 @@ function bindStuffToSaveDetailButton(detailNum) {
    $('#saveDetailButton').click(function(){
       var thisDetail = $('#'+detailNum+' > textarea').val();
       detailStack.push(thisDetail);
-      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
+      $('#content > *').addClass('animatedx fadeOut').one(animationEnd, function() {
          $('#content').empty();
          drawDetailQuestion();
       });
    });
+// speedy speed speed for dev
+$('#saveDetailButton').click();
 }
 
 
 function drawRoom() {
-   if (roomStep!=numberOfRooms-1+3) {
+   if (roomStep!=numberOfRooms-1+3) { //if not last room
       $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
+      /*if (rooms[roomStack[roomStep].number-1].otherGo==99) {
+         var isDown=true;
+      } else {
+         var isDown=false;
+      }*/
       $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
       var edgeMatch=false;
       for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
@@ -103,27 +112,35 @@ function drawRoom() {
       }
 
       var imageNumber=roomStack[roomStep].number;
-      if (imageNumber==11) {imageNumber='99';}
-
-      $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
-      
-      if (edgeMatch) {
-         bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo)
-         $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
+      if (imageNumber==11) {
+         imageNumber='99';
+         var isDown=true;
       } else {
-         bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo)
-         $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
+         var isDown=false;
+      }
+
+      if (!isDown) {
+         $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
+
+         if (edgeMatch) {
+            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo)
+            $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
+         } else {
+            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo)
+            $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
+         }
+      } else {
+         //$('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
       }
 
       $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
+      if (isDown){$('#continueButton').removeClass('hide');}
       bindStuffToContinueButton(roomStep)
       
       $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       
-      //$('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
-      //$('#plantImage img').addClass('hide');
       $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
       $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
@@ -137,17 +154,21 @@ function bindStuffToClickForMore(oldImage, newImage) {
    if (newImage==99) {return;}
    $('.clickForMore').css('cursor','pointer');
    $(document).on('click', '.clickForMore', function(event) {
-   //$('.clickForMore').click(function(){
+      $(this).addClass('animated fadeOut');
       $('img[src="img/'+oldImage+'.svg').addClass('animated fadeOut').one(animationEnd, function() {
+         $('.clickForMore').addClass('hide').removeClass('animated fadeOut');
          $(this).attr('src', 'img/'+newImage+'.svg');
          $(this).removeClass('animated fadeOut');
          $(this).addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
+            $('#continueButton').removeClass('hide').addClass('animated fadeIn');
+            $('.clickForMore').next().removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+               $(this).next().removeClass('animated fadeIn');
+               $('#continueButton').removeClass('animated fadeIn');
+            });
          });
       });
-      $(this).next().removeClass('hide');
-      $(this).addClass('hide');
-      $('#continueButton').removeClass('hide');
+
    });
 }
 
