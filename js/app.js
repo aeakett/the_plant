@@ -95,7 +95,7 @@ function drawRoom() {
       }
 
       var imageNumber=roomStack[roomStep].number;
-      if (imageNumber==11) {imageNumber='down';}
+      if (imageNumber==11) {imageNumber='99';}
 
       $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
       
@@ -118,6 +118,7 @@ function drawRoom() {
 }
 
 function bindStuffToClickForMore(oldImage, newImage) {
+   if (newImage==99) {return;}
    $('.clickForMore').css('cursor','pointer');
    $(document).on('click', '.clickForMore', function(event) {
    //$('.clickForMore').click(function(){
