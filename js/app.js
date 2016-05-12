@@ -260,14 +260,14 @@ function outputGoto(entry) {
       case 'detail':
          retval = '<div class="hide">';
          retval += '<div class="detailCard">'+detailStack.pop()+'</div>';
-         retval += '<p><strong>'+thisGoto.question+'</strong></p><input/>';
+         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
          retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
       case 'regular':
          retval = '<div class="hide">';
          retval += thisGoto.text;
-         retval += '<p><strong>'+thisGoto.question+'</strong></p><input/>';
+         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
          retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
@@ -280,9 +280,9 @@ function outputGoto(entry) {
       case 'double':
          retval = '<div class="hide">';
          retval += thisGoto.text1;
-         retval += '<p><strong>'+thisGoto.question1+'</strong></p><input/>';
+         retval += '<p><strong>'+thisGoto.question1+'</strong></p><textarea></textarea>';
          retval += thisGoto.text2;
-         retval += '<p><strong>'+thisGoto.question2+'</strong></p><input/>';
+         retval += '<p><strong>'+thisGoto.question2+'</strong></p><textarea></textarea>';
          retval += '</div>';
          incFearAnger(thisGoto.gain);
          break;
