@@ -225,7 +225,7 @@ function drawAnimatedEllipsis() {
 }
 
 function bindStuffToContinueButton(step) {
-   $('#continueButton').click(function(){
+   $('#continueButton').click($.debounce(250, function(){
       $('#plantImage .fullBleed').addClass('animated fadeOut').one(animationEnd, function() {
          $(this).removeClass('animated fadeOut');
       });
@@ -237,7 +237,7 @@ function bindStuffToContinueButton(step) {
          $(this).detach();
          drawRoom();
       });
-   });
+   }));
 }
 
 function outputGoto(entry) {
