@@ -41,14 +41,17 @@ $(document).ready(function() {
             $(this).removeClass('animated fadeIn');
          });
       });
-      //drawDetailQuestion();
+
       $('#content').append('<p>Before you start, you&rsquo;ll need to define a series of things that you might encounter in the plant.</p>');
       $('#content').append('<p>On the following screens, fill in the details for the provided examples.</p>');
       $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
       $('#content').append('<button type="button" id="goToDetails">get started</button>');
       $('#goToDetails').click(function(){
-         $('#content').empty();
-         drawDetailQuestion();
+         $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
+            $('#content').empty();
+            drawDetailQuestion();
+         });
+         
       });
    });
 
@@ -58,12 +61,15 @@ $(document).ready(function() {
 function drawDetailQuestion(){
    if (detailStep!=10) {
       var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
-      $('#content').append('<div id="detail'+detailStep+'"></div>');
+      $('#content').append('<div id="detail'+detailStep+'" class="hide"></div>');
       $('#detail'+detailStep).append('<p>'+detailCandidates[candidatePosition].q+'</p>');
       $('#detail'+detailStep).append('<textarea placeholder="'+detailCandidates[candidatePosition].e+'"></textarea>');
       $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
       detailCandidates.splice(candidatePosition,1);
       bindStuffToSaveDetailButton('detail'+detailStep);
+      $('#detail'+detailStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+         $(this).removeClass('animated fadeIn');
+      });
       detailStep++;
    } else {drawRoom();}
 }
@@ -71,15 +77,17 @@ function bindStuffToSaveDetailButton(detailNum) {
    $('#saveDetailButton').click(function(){
       var thisDetail = $('#'+detailNum+' > textarea').val();
       detailStack.push(thisDetail);
-      $('#'+detailNum).detach();
-      drawDetailQuestion();
+      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
+         $('#content').empty();
+         drawDetailQuestion();
+      });
    });
 }
 
 
 function drawRoom() {
    if (roomStep!=numberOfRooms-1+3) {
-      $('#content').append('<div id="step'+roomStep+'"></div>');
+      $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
       $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
       var edgeMatch=false;
       for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
@@ -109,9 +117,17 @@ function drawRoom() {
 
       $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
-
+      
+      $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+         $(this).removeClass('animated fadeIn');
+      });
+      
       //$('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
+      //$('#plantImage img').addClass('hide');
       $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
+      $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
+         $(this).removeClass('animated fadeIn');
+      });
 
       roomStep++;
    } else {drawConclusion();}
@@ -189,10 +205,17 @@ function drawAnimatedEllipsis() {
 
 function bindStuffToContinueButton(step) {
    $('#continueButton').click(function(){
-      var roomToTransfer = $('#step'+step).detach();
-      roomToTransfer.appendTo('#journal');
-      $(this).detach();
-      drawRoom();
+      $('#plantImage .fullBleed').addClass('animated fadeOut').one(animationEnd, function() {
+         $(this).removeClass('animated fadeOut');
+      });
+
+      $('#step'+step).addClass('animated fadeOut').one(animationEnd, function() {
+         var roomToTransfer = $('#step'+step).detach();
+         $('#step'+step).removeClass('animated fadeOut');
+         roomToTransfer.appendTo('#journal');
+         $(this).detach();
+         drawRoom();
+      });
    });
 }
 
