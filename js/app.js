@@ -16,7 +16,6 @@ var detailStep=0;
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
 $(document).ready(function() {
-
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
       roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
@@ -38,7 +37,7 @@ $(document).ready(function() {
    $('#intro').click(function(){
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
-         $('.top-bar, .content.row').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
+         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
          });
       });
@@ -111,8 +110,8 @@ function drawRoom() {
       $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
       bindStuffToContinueButton(roomStep)
 
-      
-      $('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
+      //$('#step'+roomStep).append('<img class="fullBleed" src="img/'+imageNumber+'.svg">');
+      $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
 
       roomStep++;
    } else {drawConclusion();}
@@ -540,3 +539,5 @@ var goto = [
       "gain" : "32"
    }
 ];
+
+

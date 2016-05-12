@@ -25,9 +25,8 @@
 }
 
 .fullBleed {
-   margin-left: -16px;
-   max-width: 104%;
-   width: 104%;
+   max-width: 100%;
+   width: 100%;
 }
 
 body:before { /* preload bottom border images */
@@ -60,3 +59,19 @@ body:before { /* preload bottom border images */
    transform: translateY(-50%);
 }
 
+#plantImage {
+   background-color: #cfc;
+   padding: 0;
+}
+
+footer {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   right: 0;
+   left: 0;
+}
+
+#contentSection {
+   height: 100%;
+}
