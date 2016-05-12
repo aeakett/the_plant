@@ -135,7 +135,7 @@ function drawRoom() {
 
       $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
       if (isDown){$('#continueButton').removeClass('hide');}
-      bindStuffToContinueButton(roomStep)
+      bindStuffToContinueButton(roomStep, isDown)
       
       $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
@@ -224,15 +224,20 @@ function drawAnimatedEllipsis() {
    //return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';
 }
 
-function bindStuffToContinueButton(step) {
+function bindStuffToContinueButton(step, isDown) {
+   if (isDown) {
+      var animation='fadeOutDown';
+   } else {
+      var animation='fadeOut';
+   }
    $('#continueButton').click($.debounce(250, function(){
-      $('#plantImage .fullBleed').addClass('animated fadeOut').one(animationEnd, function() {
-         $(this).removeClass('animated fadeOut');
+      $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
+         $(this).removeClass('animated '+animation);
       });
 
-      $('#step'+step).addClass('animated fadeOut').one(animationEnd, function() {
+      $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
          var roomToTransfer = $('#step'+step).detach();
-         $('#step'+step).removeClass('animated fadeOut');
+         $('#step'+step).removeClass('animated '+animation);
          roomToTransfer.appendTo('#journal');
          $(this).detach();
          drawRoom();
