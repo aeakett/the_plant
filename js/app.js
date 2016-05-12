@@ -303,29 +303,6 @@ function generateExits() {
    return [exitList[0],exitList[3]];
 }
 
-var detailCandidates = [
-   {"q":"[Condition] [hand tool].", "e":"Broken vice grips."},
-   {"q":"[Condition] [subject] book.", "e":"Well-loved history book."},
-   {"q":"[Condition] photograph of your daughter.", "e":"Torn photo of your daughter."},
-   {"q":"Smell of [subject].", "e":"Smell of baking cookies."},
-   {"q":"Sound of [subject].", "e":"Sound of a brass band."},
-   {"q":"Taste of [subject].", "e":"Taste of gasoline."},
-   {"q":"[Emotion] [animal].", "e":"Happy dog."},
-   {"q":"Your daughter’s [object].", "e":"Her hockey trophy."},
-   {"q":"Memory of your daughter at [event].", "e":"Memory of her at prom."},
-   {"q":"Pool of [liquid].", "e":"Pool of spilled apple juice."},
-   {"q":"[Condition] [item of clothing].", "e":"Dirty sweater."},
-   {"q":"[Condition] [toy].", "e":"New Transformer doll."},
-   {"q":"[Condition] letter to your daughter.", "e":"Unopened letter to her."},
-   {"q":"Feeling of [subject] on the skin.", "e":"Feeling of metal on the skin."},
-   {"q":"[Emotion] [type of] person.", "e":"Angry homeless person."},
-   {"q":"Your daughter’s voice whispering “[word]”.", "e":"Her voice whispering “Sorry”."},
-   {"q":"Memory of your daughter when she was [age].", "e":"Memory of her when she was 21."},
-   {"q":"Sudden feeling of [emotion].", "e":"Sudden feeling of joy."},
-   {"q":"Shadow in the shape of [object].", "e":"Shadow in the shape of a Pterodactyl."},
-   {"q":"Glimpse of your daughter in distance.", "e":"Just a glimpse."}
-];
-
 function incFearAnger (which) {
    switch (which) {
       case 'anger':
@@ -366,9 +343,37 @@ function incFearAnger (which) {
    }
    $('#lastInc').html(lastInc);
    $('#fear').html(fear);
+   $('#fear').addClass('animated flash').one(animationEnd, function() {
+      $(this).removeClass('animated flash');
+   });
    $('#anger').html(anger);
+   $('#anger').addClass('animated flash').one(animationEnd, function() {
+      $(this).removeClass('animated flash');
+   });
 }
 
+var detailCandidates = [
+   {"q":"[Condition] [hand tool].", "e":"Broken vice grips."},
+   {"q":"[Condition] [subject] book.", "e":"Well-loved history book."},
+   {"q":"[Condition] photograph of your daughter.", "e":"Torn photo of your daughter."},
+   {"q":"Smell of [subject].", "e":"Smell of baking cookies."},
+   {"q":"Sound of [subject].", "e":"Sound of a brass band."},
+   {"q":"Taste of [subject].", "e":"Taste of gasoline."},
+   {"q":"[Emotion] [animal].", "e":"Happy dog."},
+   {"q":"Your daughter’s [object].", "e":"Her hockey trophy."},
+   {"q":"Memory of your daughter at [event].", "e":"Memory of her at prom."},
+   {"q":"Pool of [liquid].", "e":"Pool of spilled apple juice."},
+   {"q":"[Condition] [item of clothing].", "e":"Dirty sweater."},
+   {"q":"[Condition] [toy].", "e":"New Transformer doll."},
+   {"q":"[Condition] letter to your daughter.", "e":"Unopened letter to her."},
+   {"q":"Feeling of [subject] on the skin.", "e":"Feeling of metal on the skin."},
+   {"q":"[Emotion] [type of] person.", "e":"Angry homeless person."},
+   {"q":"Your daughter’s voice whispering “[word]”.", "e":"Her voice whispering “Sorry”."},
+   {"q":"Memory of your daughter when she was [age].", "e":"Memory of her when she was 21."},
+   {"q":"Sudden feeling of [emotion].", "e":"Sudden feeling of joy."},
+   {"q":"Shadow in the shape of [object].", "e":"Shadow in the shape of a Pterodactyl."},
+   {"q":"Glimpse of your daughter in distance.", "e":"Just a glimpse."}
+];
 
 
 var rooms = [
