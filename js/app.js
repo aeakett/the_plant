@@ -92,11 +92,7 @@ $('#saveDetailButton').click();
 function drawRoom() {
    if (roomStep!=numberOfRooms-1+3) { //if not last room
       $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
-      /*if (rooms[roomStack[roomStep].number-1].otherGo==99) {
-         var isDown=true;
-      } else {
-         var isDown=false;
-      }*/
+
       $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
       var edgeMatch=false;
       for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
@@ -123,10 +119,10 @@ function drawRoom() {
          $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
 
          if (edgeMatch) {
-            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo)
+            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo);
             $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
          } else {
-            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo)
+            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo);
             $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
          }
       } else {
@@ -168,12 +164,11 @@ function bindStuffToClickForMore(oldImage, newImage) {
             });
          });
       });
-
    });
 }
 
 function drawConclusion() {
-   $('#content').append('<div id="step'+roomStep+'"></div>');
+   $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
    $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
 
    var conclusion;
@@ -196,23 +191,34 @@ function drawConclusion() {
       }
    }
 
-   $('#step'+roomStep).append('<p class="clickForMore">&hellip;</p>');
-   $('.clickForMore').click(function(){
-         $(this).next().removeClass('hide');
-         $('.clickForMore').addClass('hide');
-      });
+   $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
+   $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+      $(this).removeClass('animated fadeIn');
+   });
+
+   var imageNumber=roomStack[roomStep].number;
+
+   $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
+   $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
+      $(this).removeClass('animated fadeIn');
+   });
+
    if (conclusion=='anger') {
       if (edgeMatch) {
+         bindStuffToClickForMore(imageNumber,31);
          $('#step'+roomStep).append(outputGoto(31));
       }
       else {
+         bindStuffToClickForMore(imageNumber,22);
          $('#step'+roomStep).append(outputGoto(22));
       }
    } else { /* fear */
       if (edgeMatch) {
+         bindStuffToClickForMore(imageNumber,13);
          $('#step'+roomStep).append(outputGoto(13));
       }
       else {
+         bindStuffToClickForMore(imageNumber,17);
          $('#step'+roomStep).append(outputGoto(17));
       }
    }
