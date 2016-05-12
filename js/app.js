@@ -225,8 +225,8 @@ function drawConclusion() {
 }
 
 function drawAnimatedEllipsis() {
-   return '&hellip;';
-   //return '<img src="img/dots.svg">';
+   //return '&hellip;';
+   return '<img src="img/dots.gif" style="height: 100px" />';
    //return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';
 }
 
