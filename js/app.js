@@ -242,10 +242,12 @@ function bindStuffToContinueButton(step, isDown) {
       });
 
       $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
-         var roomToTransfer = $('#step'+step).detach();
+         //var roomToTransfer = $('#step'+step).detach();
+//console.log(roomToTransfer);
          $('#step'+step).removeClass('animated '+animation);
-         roomToTransfer.appendTo('#journal');
-         $(this).detach();
+         //roomToTransfer.appendTo('#journal');
+         $('#step'+step).appendTo('#journal');
+         $('#continueButton').detach();
          drawRoom();
       });
    }));
