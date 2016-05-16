@@ -1,3 +1,7 @@
+window.onerror = function(error) {
+    alert(error);
+};
+
 $(document).foundation();
 $(function() {
    FastClick.attach(document.body);
@@ -15,7 +19,7 @@ var detailStack = [];
 var detailStep=0;
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-$(document).ready(function() {//console.log('document ready');
+$(document).ready(function() {//alert('document ready');
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
       roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
@@ -26,19 +30,19 @@ $(document).ready(function() {//console.log('document ready');
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
    roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
 
-   $('#cover').click(function(){//console.log('#cover.click');
-      $(this).addClass('animatedx fadeOut').one(animationEnd, function() {
+   $('#cover').click(function(){//alert('#cover.click');
+      $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
-         $('#intro').removeClass('hide').addClass('animatedx fadeIn')
+         $('#intro').removeClass('hide').addClass('animated fadeIn')
       });
       
    });
 // speedy speed speed for dev
 $('#cover').click();
    $('#intro').click(function(){//console.log('#intro.click');
-      $(this).addClass('animatedx fadeOut').one(animationEnd, function() {
+      $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
-         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animatedx fadeIn').one(animationEnd,function(){
+         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
          });
       });
@@ -48,7 +52,7 @@ $('#cover').click();
       $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
       $('#content').append('<button type="button" id="goToDetails">get started</button>');
       $('#goToDetails').click(function(){//console.log('goToDetails.click');
-         $('#content > *').addClass('animatedx fadeOut').one(animationEnd, function() {
+         $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
             $('#content').empty();
             drawDetailQuestion();
          });
@@ -69,7 +73,7 @@ function drawDetailQuestion(){//console.log('drawDetailQuestions()');
       $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
       detailCandidates.splice(candidatePosition,1);
       bindStuffToSaveDetailButton('detail'+detailStep);
-      $('#detail'+detailStep).removeClass('hide').addClass('animatedx fadeIn').one(animationEnd, function() {
+      $('#detail'+detailStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       detailStep++;
@@ -79,7 +83,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
    $('#saveDetailButton').click(function(){
       var thisDetail = $('#'+detailNum+' > textarea').val();
       detailStack.push(thisDetail);
-      $('#content > *').addClass('animatedx fadeOut').one(animationEnd, function() {
+      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
          $('#content').empty();
          drawDetailQuestion();
       });
@@ -89,7 +93,7 @@ $('#saveDetailButton').click();
 }
 
 
-function drawRoom() {console.log('drawRoom()');
+function drawRoom() {//console.log('drawRoom()');
    if (roomStep!=numberOfRooms-1+3) { //if not last room
       $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
 
@@ -148,10 +152,9 @@ function drawRoom() {console.log('drawRoom()');
 
 function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffToClickForMore()');
    if (newImage==99) {return;}
-   $('.clickForMore').css('cursor','pointer');
-   $(document).on('click', '.clickForMore', function(event) {
-      $(this).addClass('animated fadeOut');
-      $('img[src="img/'+oldImage+'.svg').addClass('animated fadeOut').one(animationEnd, function() {
+   $('.clickForMore').click(function() {
+      $(this).addClass('animated fadeOut');alert('poipoipoipoi');
+      $('img[src="img/'+oldImage+'.svg"]').addClass('animated fadeOut').one(animationEnd, function() {
          $('.clickForMore').addClass('hide').removeClass('animated fadeOut');
          $(this).attr('src', 'img/'+newImage+'.svg');
          $(this).removeClass('animated fadeOut');
@@ -230,13 +233,13 @@ function drawAnimatedEllipsis() {//console.log('drawAnimatedEllipsis()');
    //return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';
 }
 
-function bindStuffToContinueButton(step, isDown) {console.log('bindStuffToContinueButton()');
+function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToContinueButton()');
    if (isDown) {
       var animation='fadeOutDown';
    } else {
       var animation='fadeOut';
    }
-   $('#continueButton').click($.debounce(250, function(){console.log('continueButton.click');
+   $('#continueButton').click($.debounce(250, function(){//console.log('continueButton.click');
       $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
       });
