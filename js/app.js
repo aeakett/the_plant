@@ -232,9 +232,7 @@ function drawConclusion() {//console.log('drawConclusion()');
 }
 
 function drawAnimatedEllipsis() {//console.log('drawAnimatedEllipsis()');
-   //return '&hellip;';
    return '<img src="img/dots.gif" style="height: 100px" />';
-   //return '<span class="ellipsis_animated-inner"><span>.</span><span>.</span><span>.</span></span>';
 }
 
 function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToContinueButton()');
