@@ -73,7 +73,7 @@ footer {
    left: 0;
 }
 
-#contentSection {
+#contentSection.bgHack {
    height: 100%;
 }
 
@@ -81,7 +81,14 @@ $has-tip-border-bottom: none;
 
 textarea {
    font-family: 'Gloria Hallelujah', cursive !important;
-   font-family: 'Short Stack', cursive !important;
-   font-family: 'Itim', cursive !important;
-   font-family: 'Kalam', cursive !important;
+   //font-family: 'Short Stack', cursive !important;
+   //font-family: 'Itim', cursive !important;
+   //font-family: 'Kalam', cursive !important;
 }
+
+body.bgHack {
+   background: #000 url('../img/bg.svg') no-repeat !important;
+   background-attachment: fixed !important;
+   background-position: center !important;
+}
+

@@ -38,12 +38,15 @@ $(document).ready(function() {//alert('document ready');
       
    });
 // speedy speed speed for dev
-$('#cover').click();
+//$('#cover').click();
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
+         $('#contentSection').addClass('bgHack');
          $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
+            $('body').addClass('bgHack');
+            $('#contentSection').removeClass('bgHack');
          });
       });
 
@@ -60,7 +63,7 @@ $('#cover').click();
       });
    });
 // speedy speed speed for dev
-$('#intro').click(); $('#goToDetails').click();
+//$('#intro').click(); $('#goToDetails').click();
 
 });
 
@@ -133,7 +136,7 @@ function drawRoom() {//console.log('drawRoom()');
          //$('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
       }
 
-      $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button>');
+      $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>');
       if (isDown){$('#continueButton').removeClass('hide');}
       bindStuffToContinueButton(roomStep, isDown)
       
@@ -145,7 +148,7 @@ function drawRoom() {//console.log('drawRoom()');
       $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
-
+//$('#step'+roomStep).append('<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>');
       roomStep++;
    } else {drawConclusion();}
 }
@@ -153,7 +156,7 @@ function drawRoom() {//console.log('drawRoom()');
 function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffToClickForMore()');
    if (newImage==99) {return;}
    $('.clickForMore').click(function() {
-      $(this).addClass('animated fadeOut');alert('poipoipoipoi');
+      $(this).addClass('animated fadeOut');
       $('img[src="img/'+oldImage+'.svg"]').addClass('animated fadeOut').one(animationEnd, function() {
          $('.clickForMore').addClass('hide').removeClass('animated fadeOut');
          $(this).attr('src', 'img/'+newImage+'.svg');
