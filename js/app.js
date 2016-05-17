@@ -38,7 +38,7 @@ $(document).ready(function() {//alert('document ready');
       
    });
 // speedy speed speed for dev
-//$('#cover').click();
+$('#cover').click();
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
@@ -63,7 +63,7 @@ $(document).ready(function() {//alert('document ready');
       });
    });
 // speedy speed speed for dev
-//$('#intro').click(); $('#goToDetails').click();
+$('#intro').click(); $('#goToDetails').click();
 
 });
 
@@ -93,7 +93,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
       });
    });
 // speedy speed speed for dev
-//$('#saveDetailButton').click();
+$('#saveDetailButton').click();
 }
 
 
@@ -265,6 +265,7 @@ function outputGoto(entry) {//console.log('outputGoto()');
    switch (thisGoto.type) {
       case 'detail':
          retval = '<div class="hide">';
+         retval += '<em>But there&rsquo;s something else&hellip;</em>';
          retval += '<div class="detailCard">'+detailStack.pop()+'</div>';
          retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
          retval += '</div>';
@@ -472,7 +473,7 @@ var goto = [
    {
       "number" : 11,
       "type" : "detail",
-      "question" : "Why does the item on the card make you simmer with barely contained rage?",
+      "question" : "Why does this thing make you simmer with barely contained rage?",
       "gain" : "anger"
    },
    {
@@ -490,7 +491,7 @@ var goto = [
    {
       "number" : 14,
       "type" : "detail",
-      "question" : "<p>Who does the item remind you of, other than your daughter, and why?</p>",
+      "question" : "<p>Who does this remind you of, other than your daughter, and why?</p>",
       "gain" : "anger"
    },
    {
@@ -543,13 +544,13 @@ var goto = [
    {
       "number" : 23,
       "type" : "detail",
-      "question" : "Why is the item on the card terrifying to you?",
+      "question" : "Why is this terrifying to you?",
       "gain" : "2fear"
    },
    {
       "number" : 24,
       "type" : "detail",
-      "question" : "Why does the item on the card fill you with stubborn determination?",
+      "question" : "Why does this fill you with stubborn determination?",
       "gain" : "anger"
    },
    {
@@ -562,7 +563,7 @@ var goto = [
    {
       "number" : 26,
       "type" : "detail",
-      "question" : "Why does the item on the card make you break down and cry?",
+      "question" : "Why does this make you break down and cry?",
       "gain" : "fear"
    },
    {
@@ -577,7 +578,7 @@ var goto = [
    {
       "number" : 28,
       "type" : "detail",
-      "question" : "Why does the item on the card make you whoop with delight, eager to press on and take care of business?",
+      "question" : "Why does this make you whoop with delight, eager to press on and take care of business?",
       "gain" : "anger"
    },
    {
@@ -602,7 +603,7 @@ var goto = [
    {
       "number" : 32,
       "type" : "detail",
-      "question" : "Why does the item on the card make you physically ill?",
+      "question" : "Why does this make you physically ill?",
       "gain" : "32"
    }
 ];
