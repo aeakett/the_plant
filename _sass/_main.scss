@@ -8,6 +8,14 @@
    font-style: normal;
 }
 
+@font-face {
+   font-family: 'gloriahallelujah';
+   src: url('fonts/gloriahallelujah.woff2') format('woff2'),
+        url('fonts/gloriahallelujah.woff') format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
 .content {
    background-color: #fff;
 }
@@ -30,7 +38,7 @@
 }
 
 body:before { /* preload bottom border images */
-   content: url('../img/1.svg') url('../img/2.svg') url('../img/3.svg') url('../img/4.svg') url('../img/5.svg') url('../img/6.svg') url('../img/7.svg') url('../img/8.svg') url('../img/9.svg') url('../img/10.svg') url('../img/11.svg') url('../img/12.svg') url('../img/13.svg') url('../img/14.svg') url('../img/15.svg') url('../img/16.svg') url('../img/17.svg') url('../img/18.svg') url('../img/19.svg') url('../img/20.svg') url('../img/21.svg') url('../img/22.svg') url('../img/23.svg') url('../img/24.svg') url('../img/25.svg') url('../img/26.svg') url('../img/27.svg') url('../img/28.svg') url('../img/29.svg') url('../img/30.svg') url('../img/31.svg') url('../img/32.svg') url('../img/down.svg') url('../img/99.svg');
+   content: url('../img/1.svg') url('../img/2.svg') url('../img/3.svg') url('../img/4.svg') url('../img/5.svg') url('../img/6.svg') url('../img/7.svg') url('../img/8.svg') url('../img/9.svg') url('../img/10.svg') url('../img/11.svg') url('../img/12.svg') url('../img/13.svg') url('../img/14.svg') url('../img/15.svg') url('../img/16.svg') url('../img/17.svg') url('../img/18.svg') url('../img/19.svg') url('../img/20.svg') url('../img/21.svg') url('../img/22.svg') url('../img/23.svg') url('../img/24.svg') url('../img/25.svg') url('../img/26.svg') url('../img/27.svg') url('../img/28.svg') url('../img/29.svg') url('../img/30.svg') url('../img/31.svg') url('../img/32.svg') url('../img/down.svg') url('../img/99.svg') url('../img/bg.svg');
    display: none;
 }
 
@@ -80,10 +88,7 @@ footer {
 $has-tip-border-bottom: none;
 
 textarea {
-   font-family: 'Gloria Hallelujah', cursive !important;
-   //font-family: 'Short Stack', cursive !important;
-   //font-family: 'Itim', cursive !important;
-   //font-family: 'Kalam', cursive !important;
+   font-family: 'gloriahallelujah', cursive !important;
 }
 
 body.bgHack {

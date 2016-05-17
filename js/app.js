@@ -72,7 +72,8 @@ function drawDetailQuestion(){//console.log('drawDetailQuestions()');
       var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
       $('#content').append('<div id="detail'+detailStep+'" class="hide"></div>');
       $('#detail'+detailStep).append('<p>'+detailCandidates[candidatePosition].q+'</p>');
-      $('#detail'+detailStep).append('<textarea placeholder="'+detailCandidates[candidatePosition].e+'"></textarea>');
+      //$('#detail'+detailStep).append('<textarea placeholder="'+detailCandidates[candidatePosition].e+'"></textarea>');
+      $('#detail'+detailStep).append('<textarea>'+detailCandidates[candidatePosition].e+'</textarea>');
       $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
       detailCandidates.splice(candidatePosition,1);
       bindStuffToSaveDetailButton('detail'+detailStep);
@@ -92,7 +93,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
       });
    });
 // speedy speed speed for dev
-$('#saveDetailButton').click();
+//$('#saveDetailButton').click();
 }
 
 

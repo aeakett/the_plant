@@ -13,7 +13,7 @@
    <link rel="canonical" href="{{ page.url | replace:'index.htm','' | prepend: site.baseurl | prepend: site.url }}">
 
    <!-- handwriting fonts from Google to try -->
-   <link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Short+Stack|Itim|Kalam:400,700' rel='stylesheet' type='text/css'>
+   <!--<link href='https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Short+Stack|Itim|Kalam:400,700' rel='stylesheet' type='text/css'>-->
 
    <link rel="icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}" type="image/x-icon">
    <!-- For non-Retina (@1× display) iPhone, iPod Touch, and Android 2.1+ devices: -->
@@ -35,9 +35,9 @@
    <!-- For Chrome for Android: -->
    <link rel="icon" sizes="192x192" href="{{ "/touch-icon-192x192.png" | prepend: site.baseurl }}">
 
-	<meta property="og:title" content="{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="{{ site.baseurl }}{{ page.url }}">
-	<meta property="og:image" content="{{ "/touch-icon-192x192.png" | prepend: site.baseurl }}">
+   <meta property="og:title" content="{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+   <meta property="og:type" content="website">
+   <meta property="og:url" content="{{ site.baseurl }}{{ page.url }}">
+   <meta property="og:image" content="{{ "/touch-icon-192x192.png" | prepend: site.baseurl }}">
 
 </head>

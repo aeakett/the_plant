@@ -2,3 +2,9 @@
 *.DS_Store
 /dist
 /node_modules/
+/_includes/pchrome-bottom.htm
+/_includes/pchrome-top.htm
+/_includes/phead.htm
+/_includes/pmenu.htm
+/_layouts/panda.htm
+/asdf.htm
