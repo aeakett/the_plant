@@ -38,7 +38,7 @@ $(document).ready(function() {//alert('document ready');
       
    });
 // speedy speed speed for dev
-$('#cover').click();
+//$('#cover').click();
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
@@ -63,7 +63,7 @@ $('#cover').click();
       });
    });
 // speedy speed speed for dev
-$('#intro').click(); $('#goToDetails').click();
+//$('#intro').click(); $('#goToDetails').click();
 
 });
 
