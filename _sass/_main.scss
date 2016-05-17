@@ -100,3 +100,13 @@ body.bgHack {
 .detailCard {
    font-family: 'gloriahallelujah', cursive !important;
 }
+
+.down {
+   font-family: 'black_gothic';
+   font-size: 500%;
+   text-align: center;
+}
+
+.double ~ #continueButton {
+   margin-bottom: 20em;
+}

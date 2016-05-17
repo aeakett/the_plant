@@ -247,6 +247,7 @@ function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToCont
       $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
       });
+      $("html, body").animate({ scrollTop: 0 }, "slow");
       $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
          $(this).appendTo('#journal');
@@ -285,7 +286,7 @@ function outputGoto(entry) {//console.log('outputGoto()');
          incFearAnger(thisGoto.gain);
          break;
       case 'double':
-         retval = '<div class="hide">';
+         retval = '<div class="hide double">';
          retval += thisGoto.text1;
          retval += '<p><strong>'+thisGoto.question1+'</strong></p><textarea></textarea>';
          retval += thisGoto.text2;
@@ -462,7 +463,7 @@ var rooms = [
    },
    {
       "number":11,
-      "text":"<p>DOWN</p>",
+      "text":"<p class='down'>DOWN</p><p>You descend to a new portion of the plant - by ladder, hoistway, stair, or perhaps by climbing machinery and crawling through a tangled collection of pipes between floors. Climbing between spaces in the plant offers a moment of introspection and peace - nothing is going to happen while you are descending.</p>",
       "edgeLetters":["a","b","c","d"],
       "edgeGo":99,
       "otherGo":99
