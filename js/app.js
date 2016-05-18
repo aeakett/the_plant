@@ -1,7 +1,6 @@
 window.onerror = function(error) {
     alert(error);
 };
-
 $(document).foundation();
 $(function() {
    FastClick.attach(document.body);
@@ -38,7 +37,7 @@ $(document).ready(function() {//alert('document ready');
       
    });
 // speedy speed speed for dev
-//$('#cover').click();
+$('#cover').click();
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
@@ -64,7 +63,7 @@ $(document).ready(function() {//alert('document ready');
       });
    });
 // speedy speed speed for dev
-//$('#intro').click(); $('#goToDetails').click();
+$('#intro').click(); $('#goToDetails').click();
 
 });
 
@@ -94,7 +93,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
       });
    });
 // speedy speed speed for dev
-//$('#saveDetailButton').click();
+$('#saveDetailButton').click();
 }
 
 
