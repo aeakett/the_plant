@@ -50,6 +50,7 @@ $(document).ready(function() {//alert('document ready');
          });
       });
 
+      $('#content').append('<p><em>The Plant</em> is a heartwrenching tale by Jason Morningstar, &copy;2009 and released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</p>');
       $('#content').append('<p>Before you start, you&rsquo;ll need to define a series of things that you might encounter in the plant.</p>');
       $('#content').append('<p>On the following screens, fill in the details for the provided examples.</p>');
       $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
@@ -93,7 +94,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
       });
    });
 // speedy speed speed for dev
-$('#saveDetailButton').click();
+//$('#saveDetailButton').click();
 }
 
 
