@@ -19,44 +19,36 @@ var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimation
 $(document).ready(function() {//alert('document ready');
    prepareRoomStack();
 
-   $('#cover').removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+   $('#cover').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
       $(this).removeClass('animated fadeIn');
    }).click(function(){//alert('#cover.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
-         $(this).addClass('hide').removeClass('animated fadeOut');
-         $('#intro').removeClass('hide').addClass('animated fadeIn')
+         $(this).remove();
+         $('#intro').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
+            $(this).removeClass('animated fadeIn');
+         });
       });
    });
 // speedy speed speed for dev
-$('#cover').click();
+//$('#cover').click();
 
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
-         $(this).addClass('hide').removeClass('animated fadeOut');
-         $('#contentSection').addClass('bgHack');
-         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
+         $(this).remove();
+         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').on(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
-            $('body').addClass('bgHack');
-            $('#contentSection').removeClass('bgHack');
          });
-      });
-
-      $('#content').append('<p><em>The Plant</em> is a heartwrenching tale by Jason Morningstar, &copy;2009 and released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</p>');
-      $('#content').append('<p>Before you start, you&rsquo;ll need to define a series of things that you might encounter in the plant.</p>');
-      $('#content').append('<p>On the following screens, fill in the details for the provided examples.</p>');
-      $('#content').append('<p>Or, feel free to author your own things&hellip; just ignore the example text.</p>');
-      $('#content').append('<button type="button" id="goToDetails">get started</button>');
-      $('#goToDetails').click(function(){//console.log('goToDetails.click');
-         $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
-            $('#content').empty();
-            drawDetailQuestion();
-         });
-         
       });
    });
 // speedy speed speed for dev
-$('#intro').click(); $('#goToDetails').click();
+//$('#intro').click(); $('#goToDetails').click();
 
+   $('#goToDetails').click(function(){//console.log('goToDetails.click');
+      $('#content > *').addClass('animated fadeOut').on(animationEnd, function() {
+         $('#content').empty();
+         drawDetailQuestion();
+      });
+   });
 });
 
 function drawDetailQuestion(){//console.log('drawDetailQuestions()');
