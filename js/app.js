@@ -1,10 +1,8 @@
 window.onerror = function(error) {
     alert(error);
 };
+
 $(document).foundation();
-$(function() {
-   FastClick.attach(document.body);
-});
 
 var fear=0;
 var anger=0;
