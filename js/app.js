@@ -16,12 +16,12 @@ var detailStack = [];
 var detailStep=0;
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-$(document).ready(function() {//alert('document ready');
+$(document).ready(function() {//console.log('document ready');
    prepareRoomStack();
 
    $('#cover').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
       $(this).removeClass('animated fadeIn');
-   }).click(function(){//alert('#cover.click');
+   }).click(function(){//console.log('#cover.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).remove();
          $('#intro').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
@@ -56,7 +56,6 @@ function drawDetailQuestion(){//console.log('drawDetailQuestions()');
       var candidatePosition = Math.floor(Math.random()*detailCandidates.length);
       $('#content').append('<div id="detail'+detailStep+'" class="hide"></div>');
       $('#detail'+detailStep).append('<p>'+detailCandidates[candidatePosition].q+'</p>');
-      //$('#detail'+detailStep).append('<textarea placeholder="'+detailCandidates[candidatePosition].e+'"></textarea>');
       $('#detail'+detailStep).append('<textarea>'+detailCandidates[candidatePosition].e+'</textarea>');
       $('#detail'+detailStep).append('<button type="button" id="saveDetailButton">save detail</button>');
       detailCandidates.splice(candidatePosition,1);
@@ -65,13 +64,16 @@ function drawDetailQuestion(){//console.log('drawDetailQuestions()');
          $(this).removeClass('animated fadeIn');
       });
       detailStep++;
-   } else {drawRoom();}
+   } else {
+      shuffle(detailStack);
+      drawRoom();
+   }
 }
 function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveDetailButton()');
    $('#saveDetailButton').click(function(){
       var thisDetail = $('#'+detailNum+' > textarea').val();
       detailStack.push(thisDetail);
-      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
+      $('#content > *').addClass('animated fadeOut').on(animationEnd, function() {
          $('#content').empty();
          drawDetailQuestion();
       });
@@ -80,6 +82,23 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
 $('#saveDetailButton').click();
 }
 
+/*
+ * The following is from http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+function shuffle(array) {
+   var currentIndex = array.length, temporaryValue, randomIndex;
+   // While there remain elements to shuffle...
+   while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+   }
+   return array;
+}
 
 function drawRoom() {//console.log('drawRoom()');
    if (roomStep!=numberOfRooms-1+3) { //if not last room
