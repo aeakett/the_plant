@@ -17,25 +17,19 @@ var detailStep=0;
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
 $(document).ready(function() {//alert('document ready');
-   for (var i=0; i<numberOfRooms; i++) {
-      var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
-      roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
-      roomCandidates.splice(candidatePosition,1);
-   }
-   // Add "Down" cards at random
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,{"number":11,"exits":[0,0]});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
+   prepareRoomStack();
 
-   $('#cover').click(function(){//alert('#cover.click');
+   $('#cover').removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+      $(this).removeClass('animated fadeIn');
+   }).click(function(){//alert('#cover.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
          $('#intro').removeClass('hide').addClass('animated fadeIn')
       });
-      
    });
 // speedy speed speed for dev
 $('#cover').click();
+
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).addClass('hide').removeClass('animated fadeOut');
@@ -239,7 +233,7 @@ function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToCont
    } else {
       var animation='fadeOut';
    }
-   $('#continueButton').click($.debounce(250, function(){//console.log('continueButton.click');
+   $('#continueButton').on('click', Foundation.utils.debounce(function(e){//console.log('continueButton.click');
       $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
       });
@@ -251,7 +245,7 @@ function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToCont
          $('.clickForMore').remove();
          drawRoom();
       });
-   }));
+   }, 300, true));
 }
 
 function outputGoto(entry) {//console.log('outputGoto()');
@@ -362,6 +356,16 @@ function incFearAnger (which) {//console.log('incFearAnger()');
    });
 }
 
-
+function prepareRoomStack() {
+   for (var i=0; i<numberOfRooms; i++) {
+      var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
+      roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
+      roomCandidates.splice(candidatePosition,1);
+   }
+   // Add "Down" cards at random
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,{"number":11,"exits":[0,0]});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
+}
 
 
