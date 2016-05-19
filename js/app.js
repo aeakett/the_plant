@@ -19,32 +19,32 @@ var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimation
 $(document).ready(function() {//console.log('document ready');
    prepareRoomStack();
 
-   $('#cover').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
+   $('#cover').removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
       $(this).removeClass('animated fadeIn');
    }).click(function(){//console.log('#cover.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).remove();
-         $('#intro').removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
+         $('#intro').removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
             $(this).removeClass('animated fadeIn');
          });
       });
    });
 // speedy speed speed for dev
-//$('#cover').click();
+$('#cover').click();
 
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
          $(this).remove();
-         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').on(animationEnd,function(){
+         $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
          });
       });
    });
 // speedy speed speed for dev
-//$('#intro').click(); $('#goToDetails').click();
+$('#intro').click(); $('#goToDetails').click();
 
    $('#goToDetails').click(function(){//console.log('goToDetails.click');
-      $('#content > *').addClass('animated fadeOut').on(animationEnd, function() {
+      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
          $('#content').empty();
          drawDetailQuestion();
       });
@@ -73,7 +73,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
    $('#saveDetailButton').click(function(){
       var thisDetail = $('#'+detailNum+' > textarea').val();
       detailStack.push(thisDetail);
-      $('#content > *').addClass('animated fadeOut').on(animationEnd, function() {
+      $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
          $('#content').empty();
          drawDetailQuestion();
       });
@@ -143,12 +143,12 @@ function drawRoom() {//console.log('drawRoom()');
       if (isDown){ $('#continueButton').removeClass('hide'); }
       bindStuffToContinueButton(roomStep, isDown, whichGain)
       
-      $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
+      $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       
       $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
-      $('#plantImage img').addClass('animated fadeIn').on(animationEnd, function() {
+      $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       roomStep++;
@@ -195,14 +195,15 @@ function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bind
    } else {
       var animation='fadeOut';
    }
-   $('#continueButton').on('click', Foundation.utils.debounce(function(e){//console.log('continueButton.click');
-      $('#plantImage .fullBleed').addClass('animated '+animation).on(animationEnd, function() {
+   $('#continueButton').on('click', Foundation.utils.debounce(function(){//console.log('continueButton.click');
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
       });
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('#step'+step).addClass('animated '+animation).on(animationEnd, function() {
+      $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
-         $(this).appendTo('#journal');
+         console.log($('#step'+step).html());
+         $('#step'+step).appendTo('#journal').off();
          $('#continueButton').remove();
          $('.clickForMore').remove();
          incFearAnger(whichGain);
