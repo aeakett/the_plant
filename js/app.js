@@ -104,18 +104,18 @@ function drawRoom() {//console.log('drawRoom()');
    if (roomStep!=numberOfRooms-1+3) { //if not last room
       $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
 
-      $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
+      $('#step'+roomStep).append(rooms[roomStack[roomStep]-1].text);
       var lastRoom;
       if (roomStep==0) {
          lastRoom='outside';
-      } else if (roomStack[roomStep-1].number == 11) {
+      } else if (roomStack[roomStep-1] == 11) {
          lastRoom='down'
       } else {
          lastRoom='room'
       }
       var edgeMatch=isEdgeMatch('lastRoom');
 
-      var imageNumber=roomStack[roomStep].number;
+      var imageNumber=roomStack[roomStep];
       if (imageNumber==11) {
          imageNumber='99';
          var isDown=true;
@@ -123,17 +123,17 @@ function drawRoom() {//console.log('drawRoom()');
          var isDown=false;
       }
 
-      var goTo;
+      var whichGoTo;
       if (edgeMatch) {
-         goTo=rooms[roomStack[roomStep].number-1].edgeGo;
+         whichGoTo=rooms[roomStack[roomStep]-1].edgeGo;
       } else {
-         goTo=rooms[roomStack[roomStep].number-1].otherGo;
+         whichGoTo=rooms[roomStack[roomStep]-1].otherGo;
       }
 
       if (!isDown) { // draw ellipsis and goto text if appropriate
          $('#step'+roomStep).append(drawClickForMore());
-         bindStuffToClickForMore(imageNumber, goTo);
-         $('#step'+roomStep).append(outputGoto(goTo));
+         bindStuffToClickForMore(imageNumber, whichGoTo);
+         $('#step'+roomStep).append(outputGoto(whichGoTo));
       }
 
       $('#step'+roomStep).append(drawContinueButton());
@@ -188,7 +188,7 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
 
 function drawConclusion() {//console.log('drawConclusion()');
    $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
-   $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
+   $('#step'+roomStep).append(rooms[roomStack[roomStep]-1].text);
 
    var conclusion;
    if (anger > fear)          { conclusion = 'anger'; }
@@ -202,10 +202,10 @@ function drawConclusion() {//console.log('drawConclusion()');
    }
 
    var edgeMatch=false;
-   for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
+   for (var i=0; i<rooms[roomStack[roomStep]-1].edgeLetters.length; i++) {
       var lastExit=roomStack[roomStep-1].exits[1];
       var thisEntry=roomStack[roomStep].exits[0];
-      if (rooms[roomStack[roomStep].number-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep].number-1].edgeLetters[i]==thisEntry) {
+      if (rooms[roomStack[roomStep]-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep]-1].edgeLetters[i]==thisEntry) {
          edgeMatch=true;
       }
    }
@@ -215,7 +215,7 @@ function drawConclusion() {//console.log('drawConclusion()');
       $(this).removeClass('animated fadeIn');
    });
 
-   var imageNumber=roomStack[roomStep].number;
+   var imageNumber=roomStack[roomStep];
 
    $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
    $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
@@ -372,13 +372,13 @@ function incFearAnger (which) {//console.log('incFearAnger()');
 function prepareRoomStack() {
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
-      roomStack.push({"number":roomCandidates[candidatePosition]});
+      roomStack.push(roomCandidates[candidatePosition]);
       roomCandidates.splice(candidatePosition,1);
    }
    // Add "Down" cards at random
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,{"number":11});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,11);
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,11);
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,11);
 }
 
 
