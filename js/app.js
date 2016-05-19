@@ -138,7 +138,8 @@ function drawRoom() {//console.log('drawRoom()');
 
       $('#step'+roomStep).append(drawContinueButton());
       if (isDown){ $('#continueButton').removeClass('hide'); }
-      bindStuffToContinueButton(roomStep, isDown)
+      var whichGain=goto[whichGoTo-11].gain;
+      bindStuffToContinueButton(roomStep, isDown, whichGain)
       
       $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
@@ -251,7 +252,7 @@ function drawContinueButton() {
    return '<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>';
 }
 
-function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToContinueButton()');
+function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bindStuffToContinueButton()');
    if (isDown) {
       var animation='fadeOutDown';
    } else {
@@ -267,6 +268,7 @@ function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToCont
          $(this).appendTo('#journal');
          $('#continueButton').remove();
          $('.clickForMore').remove();
+         incFearAnger(whichGain);
          drawRoom();
       });
    }, 300, true));
@@ -284,20 +286,20 @@ function outputGoto(entry) {//console.log('outputGoto()');
          retval += '<div class="detailCard">'+detailStack.pop()+'</div>';
          retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
          retval += '</div>';
-         incFearAnger(thisGoto.gain);
+         //incFearAnger(thisGoto.gain);
          break;
       case 'regular':
          retval = '<div class="hide">';
          retval += thisGoto.text;
          retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
          retval += '</div>';
-         incFearAnger(thisGoto.gain);
+         //incFearAnger(thisGoto.gain);
          break;
       case 'prev':
          retval = '<div class="hide">';
          retval += thisGoto.text;
          retval += '</div>';
-         incFearAnger(thisGoto.gain);
+         //incFearAnger(thisGoto.gain);
          break;
       case 'double':
          retval = '<div class="hide double">';
@@ -306,7 +308,7 @@ function outputGoto(entry) {//console.log('outputGoto()');
          retval += thisGoto.text2;
          retval += '<p><strong>'+thisGoto.question2+'</strong></p><textarea></textarea>';
          retval += '</div>';
-         incFearAnger(thisGoto.gain);
+         //incFearAnger(thisGoto.gain);
          break;
       case 'end':
          retval = '<div class="hide">';
