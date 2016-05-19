@@ -203,7 +203,13 @@ function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bind
       $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
          console.log($('#step'+step).html());
-         $('#step'+step).appendTo('#journal').off();
+         $('#step'+step).appendTo('#journal').off(); //the off() is to remove this event handler... all sorts of bad things happen without it
+         $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea class="hide"></textarea></div><hr class="journalDivider" />');
+         $('#journal a.addNotes').on('click', Foundation.utils.debounce(function(){
+            $(this).next().removeClass('hide').next().removeClass('hide');
+            $(this).remove();
+         }, 300, true));
+         $('#journal br').remove();
          $('#continueButton').remove();
          $('.clickForMore').remove();
          incFearAnger(whichGain);

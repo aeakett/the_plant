@@ -67,6 +67,10 @@ body:before { /* preload bottom border images */
    transform: translateY(-50%);
 }
 
+#journal h1 {
+   font-family: 'black_gothic';
+}
+
 #plantImage {
    background-color: #cfc;
    background-color: #fff;
@@ -109,4 +113,11 @@ body.bgHack {
 
 .double ~ #continueButton {
    margin-bottom: 20em;
+}
+
+.journalDivider {
+   border: 0;
+   height: 3px;
+   background: #000;
+   //background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
