@@ -105,18 +105,15 @@ function drawRoom() {//console.log('drawRoom()');
       $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
 
       $('#step'+roomStep).append(rooms[roomStack[roomStep].number-1].text);
-      var edgeMatch=false;
-      for (var i=0; i<rooms[roomStack[roomStep].number-1].edgeLetters.length; i++) {
-         if (roomStep==0) {
-            var lastExit=0;
-         } else {
-            var lastExit=roomStack[roomStep-1].exits[1];
-         }
-         var thisEntry=roomStack[roomStep].exits[0];
-         if (rooms[roomStack[roomStep].number-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep].number-1].edgeLetters[i]==thisEntry) {
-            edgeMatch=true;
-         }
+      var lastRoom;
+      if (roomStep==0) {
+         lastRoom='outside';
+      } else if (roomStack[roomStep-1].number == 11) {
+         lastRoom='down'
+      } else {
+         lastRoom='room'
       }
+      var edgeMatch=isEdgeMatch('lastRoom');
 
       var imageNumber=roomStack[roomStep].number;
       if (imageNumber==11) {
@@ -126,35 +123,47 @@ function drawRoom() {//console.log('drawRoom()');
          var isDown=false;
       }
 
-      if (!isDown) {
-         $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
-
-         if (edgeMatch) {
-            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].edgeGo);
-            $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
-         } else {
-            bindStuffToClickForMore(imageNumber,rooms[roomStack[roomStep].number-1].otherGo);
-            $('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].otherGo));
-         }
+      var goTo;
+      if (edgeMatch) {
+         goTo=rooms[roomStack[roomStep].number-1].edgeGo;
       } else {
-         //$('#step'+roomStep).append(outputGoto(rooms[roomStack[roomStep].number-1].edgeGo));
+         goTo=rooms[roomStack[roomStep].number-1].otherGo;
       }
 
-      $('#step'+roomStep).append('<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>');
-      if (isDown){$('#continueButton').removeClass('hide');}
+      if (!isDown) { // draw ellipsis and goto text if appropriate
+         $('#step'+roomStep).append(drawClickForMore());
+         bindStuffToClickForMore(imageNumber, goTo);
+         $('#step'+roomStep).append(outputGoto(goTo));
+      }
+
+      $('#step'+roomStep).append(drawContinueButton());
+      if (isDown){ $('#continueButton').removeClass('hide'); }
       bindStuffToContinueButton(roomStep, isDown)
       
-      $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
+      $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
       
       $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
-      $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
+      $('#plantImage img').addClass('animated fadeIn').on(animationEnd, function() {
          $(this).removeClass('animated fadeIn');
       });
-//$('#step'+roomStep).append('<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>');
       roomStep++;
-   } else {drawConclusion();}
+   } else { drawConclusion(); }
+}
+
+function isEdgeMatch(previousRoom) {
+   var retval;
+   if (previousRoom=='outside' || previousRoom=='down') {
+      if ( Math.round(Math.random()) == 1 ) {
+         retval=true;
+      } else { retval=false; }
+   } else { //room
+      if (Math.floor(Math.random()*4)+1 == 4) {
+         retval=false;
+      } else { retval=true; }
+   }
+   return retval;
 }
 
 function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffToClickForMore()');
@@ -201,7 +210,7 @@ function drawConclusion() {//console.log('drawConclusion()');
       }
    }
 
-   $('#step'+roomStep).append('<a class="clickForMore">'+drawAnimatedEllipsis()+'</a>');
+   $('#step'+roomStep).append(drawClickForMore());
    $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
       $(this).removeClass('animated fadeIn');
    });
@@ -234,8 +243,12 @@ function drawConclusion() {//console.log('drawConclusion()');
    }
 }
 
-function drawAnimatedEllipsis() {//console.log('drawAnimatedEllipsis()');
-   return '<img src="img/dots.gif" style="height: 100px" />';
+function drawClickForMore() {//console.log('drawClickForMore()');
+   return '<a class="clickForMore"><img src="img/dots.gif" style="height: 100px" /></a>';
+}
+
+function drawContinueButton() {
+   return '<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>';
 }
 
 function bindStuffToContinueButton(step, isDown) {//console.log('bindStuffToContinueButton()');
@@ -307,17 +320,6 @@ function outputGoto(entry) {//console.log('outputGoto()');
    return retval;
 }
 
-function generateExits() {//console.log('generateExits()');
-   var exitCandidates = ['a','b','c','d'];
-   var exitList = [];
-   for (var i=0; i<4; i++) {
-      var exitPosition = Math.floor(Math.random()*exitCandidates.length);
-      exitList.push(exitCandidates[exitPosition]);
-      exitCandidates.splice(exitPosition,1);
-   }
-   return [exitList[0],exitList[3]];
-}
-
 function incFearAnger (which) {//console.log('incFearAnger()');
    switch (which) {
       case 'anger':
@@ -370,13 +372,13 @@ function incFearAnger (which) {//console.log('incFearAnger()');
 function prepareRoomStack() {
    for (var i=0; i<numberOfRooms; i++) {
       var candidatePosition = Math.floor(Math.random()*roomCandidates.length);
-      roomStack.push({"number":roomCandidates[candidatePosition], "exits":generateExits()});
+      roomStack.push({"number":roomCandidates[candidatePosition]});
       roomCandidates.splice(candidatePosition,1);
    }
    // Add "Down" cards at random
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,{"number":11,"exits":[0,0]});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11,"exits":[0,0]});
-   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11,"exits":[0,0]});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms),0,{"number":11});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+1),0,{"number":11});
+   roomStack.splice(Math.floor(Math.random()*numberOfRooms+2),0,{"number":11});
 }
 
 
