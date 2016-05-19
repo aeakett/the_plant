@@ -130,15 +130,17 @@ function drawRoom() {//console.log('drawRoom()');
          whichGoTo=rooms[roomStack[roomStep]-1].otherGo;
       }
 
+      var whichGain;
+
       if (!isDown) { // draw ellipsis and goto text if appropriate
          $('#step'+roomStep).append(drawClickForMore());
          bindStuffToClickForMore(imageNumber, whichGoTo);
          $('#step'+roomStep).append(outputGoto(whichGoTo));
-      }
+         whichGain=goto[whichGoTo-11].gain;
+      } else { whichGain='none'; }
 
       $('#step'+roomStep).append(drawContinueButton());
       if (isDown){ $('#continueButton').removeClass('hide'); }
-      var whichGain=goto[whichGoTo-11].gain;
       bindStuffToContinueButton(roomStep, isDown, whichGain)
       
       $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').on(animationEnd, function() {
@@ -168,7 +170,7 @@ function isEdgeMatch(previousRoom) {
 }
 
 function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffToClickForMore()');
-   if (newImage==99) {return;}
+   //if (newImage==99) {return;} //this is a "DOWN" section, and we don't need to swap the image
    $('.clickForMore').click(function() {
       $(this).addClass('animated fadeOut');
       $('img[src="img/'+oldImage+'.svg"]').addClass('animated fadeOut').one(animationEnd, function() {
@@ -185,6 +187,28 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
          });
       });
    });
+}
+
+function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bindStuffToContinueButton()');
+   if (isDown) {
+      var animation='fadeOutDown';
+   } else {
+      var animation='fadeOut';
+   }
+   $('#continueButton').on('click', Foundation.utils.debounce(function(e){//console.log('continueButton.click');
+      $('#plantImage .fullBleed').addClass('animated '+animation).on(animationEnd, function() {
+         $(this).removeClass('animated '+animation);
+      });
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('#step'+step).addClass('animated '+animation).on(animationEnd, function() {
+         $(this).removeClass('animated '+animation);
+         $(this).appendTo('#journal');
+         $('#continueButton').remove();
+         $('.clickForMore').remove();
+         incFearAnger(whichGain);
+         drawRoom();
+      });
+   }, 300, true));
 }
 
 function drawConclusion() {//console.log('drawConclusion()');
@@ -250,28 +274,6 @@ function drawClickForMore() {//console.log('drawClickForMore()');
 
 function drawContinueButton() {
    return '<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>';
-}
-
-function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bindStuffToContinueButton()');
-   if (isDown) {
-      var animation='fadeOutDown';
-   } else {
-      var animation='fadeOut';
-   }
-   $('#continueButton').on('click', Foundation.utils.debounce(function(e){//console.log('continueButton.click');
-      $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
-         $(this).removeClass('animated '+animation);
-      });
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
-         $(this).removeClass('animated '+animation);
-         $(this).appendTo('#journal');
-         $('#continueButton').remove();
-         $('.clickForMore').remove();
-         incFearAnger(whichGain);
-         drawRoom();
-      });
-   }, 300, true));
 }
 
 function outputGoto(entry) {//console.log('outputGoto()');
@@ -355,6 +357,9 @@ function incFearAnger (which) {//console.log('incFearAnger()');
          } else if (lastInc=='neither') {
             incFearAnger('both');
          }
+         break;
+      case 'none':
+         return;
          break;
       default:
          // nothing
