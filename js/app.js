@@ -31,7 +31,7 @@ $(document).ready(function() {//console.log('document ready');
       });
    });
 // speedy speed speed for dev
-$('#cover').click();
+//$('#cover').click();
 
    $('#intro').click(function(){//console.log('#intro.click');
       $(this).addClass('animated fadeOut').one(animationEnd, function() {
