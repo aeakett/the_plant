@@ -1,8 +1,9 @@
-# my-jekyll-foundation
+# The Plant
 
-<code>npm install</code> to set up Grunt  
+A heartwrenching tale by Jason Morningstar prepared for the web by Andrew Eakett.
 
-<code>jekyll build --watch</code>  
-make your changes  
-<code>grunt</code> to minify html
+Somebody you love has gone missing inside the plant. You are going to get them back.
 
+A solitaire roleplaying game.
+
+http://bullypulpitgames.com/downloads/the-plant/
