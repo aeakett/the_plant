@@ -11,6 +11,7 @@ var room;
 var roomStep = 0;
 var roomStack = [];
 var numberOfRooms = 7;
+//var numberOfRooms = 1;
 var roomCandidates = [1,2,3,4,5,6,7,8,9,10];
 var detailStack = [];
 var detailStep=0;
@@ -233,14 +234,13 @@ function drawConclusion() {//console.log('drawConclusion()');
       else                    { conclusion = 'fear'; }
    }
 
-   var edgeMatch=false;
-   for (var i=0; i<rooms[roomStack[roomStep]-1].edgeLetters.length; i++) {
-      var lastExit=roomStack[roomStep-1].exits[1];
-      var thisEntry=roomStack[roomStep].exits[0];
-      if (rooms[roomStack[roomStep]-1].edgeLetters[i]==lastExit || rooms[roomStack[roomStep]-1].edgeLetters[i]==thisEntry) {
-         edgeMatch=true;
-      }
+   var lastRoom;
+   if (roomStack[roomStep-1] == 11) {
+      lastRoom='down'
+   } else {
+      lastRoom='room'
    }
+   var edgeMatch=isEdgeMatch('lastRoom');
 
    $('#step'+roomStep).append(drawClickForMore());
    $('#step'+roomStep).removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
@@ -249,8 +249,7 @@ function drawConclusion() {//console.log('drawConclusion()');
 
    var imageNumber=roomStack[roomStep];
 
-   $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg');
-   $('#plantImage img').addClass('animated fadeIn').one(animationEnd, function() {
+   $('#plantImage img').attr('src', 'img/'+imageNumber+'.svg').addClass('animated fadeIn').one(animationEnd, function() {
       $(this).removeClass('animated fadeIn');
    });
 
