@@ -27,6 +27,10 @@
    letter-spacing: 0.3em;
 }
 
+.top-bar-section .right li a {
+   height: 45px;
+}
+
 .clickForMore {
    font-size: 400%;
    cursor: pointer;
@@ -119,5 +123,4 @@ body.bgHack {
    border: 0;
    height: 3px;
    background: #000;
-   //background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
