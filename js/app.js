@@ -42,7 +42,7 @@ $(document).ready(function() {//console.log('document ready');
       });
    });
 // speedy speed speed for dev
-$('#intro').click(); $('#goToDetails').click();
+//$('#intro').click(); $('#goToDetails').click();
 
    $('#goToDetails').click(function(){//console.log('goToDetails.click');
       $('#content > *').addClass('animated fadeOut').one(animationEnd, function() {
@@ -80,7 +80,7 @@ function bindStuffToSaveDetailButton(detailNum) {//console.log('bindStuffToSaveD
       });
    });
 // speedy speed speed for dev
-$('#saveDetailButton').click();
+//$('#saveDetailButton').click();
 }
 
 /*
