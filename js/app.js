@@ -103,7 +103,7 @@ function shuffle(array) {
 
 function drawRoom() {//console.log('drawRoom()');
    if (roomStep!=numberOfRooms-1+3) { //if not last room
-      $('#content').append('<div id="step'+roomStep+'" class="hide"></div>');
+      $('#content').append('<div id="step'+roomStep+'" class="step hide"></div>');
 
       $('#step'+roomStep).append(rooms[roomStack[roomStep]-1].text);
       var lastRoom;
@@ -184,6 +184,7 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
             $('.clickForMore').next().removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
                $(this).next().removeClass('animated fadeIn');
                $('#continueButton').removeClass('animated fadeIn');
+					$('.step').css('padding-bottom', $('.fullBleed').height());
             });
          });
       });
