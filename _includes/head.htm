@@ -33,7 +33,7 @@
 
    <meta property="og:title" content="{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
    <meta property="og:type" content="website">
-   <meta property="og:url" content="{{ site.baseurl }}{{ page.url }}">
-   <meta property="og:image" content="{{ "/touch-icon-192x192.png" | prepend: site.baseurl }}">
+   <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+   <meta property="og:image" content="{{ "/og.png" | prepend: site.baseurl | prepend: site.url }}">
 
 </head>
