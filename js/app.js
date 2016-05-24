@@ -38,6 +38,7 @@ $(document).ready(function() {//console.log('document ready');
          $(this).remove();
          $('.top-bar, .content.row, #plantImage').removeClass('hide').addClass('animated fadeIn').one(animationEnd,function(){
             $(this).removeClass('animated fadeIn');
+            $('body').addClass('bgHack');
          });
       });
    });
