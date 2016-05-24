@@ -23,7 +23,7 @@
 .top-bar .title-area .name p {
    color: #fff;
    padding-left: 1em;
-   font-family: 'black_gothic';
+   font-family: 'black_gothic', 'Arial Black', sans-serif;
    letter-spacing: 0.3em;
 }
 
@@ -58,11 +58,11 @@ body:before { /* preload bottom border images */
 }
 
 #fear, #anger {
-   font-family: 'black_gothic';
+   font-family: 'black_gothic', 'Arial Black', sans-serif;
 }
 
 #intro {
-   font-family: 'black_gothic';
+   font-family: 'black_gothic', 'Arial Black', sans-serif;
    color: #fff;
    cursor: pointer;
    text-align: center;
@@ -72,7 +72,7 @@ body:before { /* preload bottom border images */
 }
 
 #journal h1 {
-   font-family: 'black_gothic';
+   font-family: 'black_gothic', 'Arial Black', sans-serif;
 }
 
 #plantImage {
@@ -96,7 +96,7 @@ footer {
 $has-tip-border-bottom: none;
 
 textarea {
-   font-family: 'gloriahallelujah', cursive !important;
+   font-family: 'gloriahallelujah', 'Comic Sans MS', cursive !important;
 }
 
 body.bgHack {
@@ -106,11 +106,11 @@ body.bgHack {
 }
 
 .detailCard {
-   font-family: 'gloriahallelujah', cursive !important;
+   font-family: 'gloriahallelujah', 'Comic Sans MS', cursive !important;
 }
 
 .down {
-   font-family: 'black_gothic';
+   font-family: 'black_gothic', 'Arial Black', sans-serif;
    font-size: 500%;
    text-align: center;
 }
