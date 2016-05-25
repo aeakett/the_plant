@@ -4,6 +4,8 @@ window.onerror = function(error) {
 
 $(document).foundation();
 
+/* generate session id per: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript */
+var sessionId='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
 var fear=0;
 var anger=0;
 var lastInc="neither";
