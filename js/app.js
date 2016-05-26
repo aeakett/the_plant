@@ -70,6 +70,7 @@ function drawDetailQuestion(){//console.log('drawDetailQuestions()');
       detailStep++;
    } else {
       shuffle(detailStack);
+      logDetailStack();
       drawRoom();
    }
 }
@@ -102,6 +103,20 @@ function shuffle(array) {
       array[randomIndex] = temporaryValue;
    }
    return array;
+}
+
+function logDetailStack() {
+   for (var i = detailStack.length - 1; i >= 0; i--) {
+      $.post( "http://theplant-datacatcher.appspot.com/logDetails", { session: sessionId, text: detailStack[i], stackNum: i } );
+   };
+}
+
+function logRoom(number, order, goto) {
+   $.post( "http://theplant-datacatcher.appspot.com/logRoom", { session: sessionId, number: number, order: order, goto: goto } );
+}
+
+function logGoto(number, detail, answer1, answer2) {
+   $.post( "http://theplant-datacatcher.appspot.com/logGoto", { session: sessionId, number: number, detail: detail, answer1: answer1, answer2: answer2 } );
 }
 
 function drawRoom() {//console.log('drawRoom()');
@@ -207,7 +222,7 @@ function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bind
       });
       $('#step'+step).addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
-         console.log($('#step'+step).html());
+         //console.log($('#step'+step).html());
          $('#step'+step).appendTo('#journal').off(); //the off() is to remove this event handler... all sorts of bad things happen without it
          $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea class="hide"></textarea></div><hr class="journalDivider" />');
          $('#journal a.addNotes').on('click', Foundation.utils.debounce(function(){
