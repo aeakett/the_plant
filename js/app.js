@@ -111,8 +111,8 @@ function logDetailStack() {
    };
 }
 
-function logRoom(number, order, goto) {
-   $.post( "http://theplant-datacatcher.appspot.com/logRoom", { session: sessionId, number: number, order: order, goto: goto } );
+function logRoom(number, order, gotoNum) {
+   $.post( "http://theplant-datacatcher.appspot.com/logRoom", { session: sessionId, number: number, order: order, gotoNum: gotoNum } );
 }
 
 function logGoto(number, detail, answer1, answer2) {
@@ -149,7 +149,7 @@ function drawRoom() {//console.log('drawRoom()');
          whichGoTo=rooms[roomStack[roomStep]-1].otherGo;
       }
 
-      logRoom(sessionId, roomStack[roomStep], roomStep, whichGoTo);
+      logRoom(roomStack[roomStep], roomStep, whichGoTo);
 
       var whichGain;
 
@@ -276,23 +276,23 @@ function drawConclusion() {//console.log('drawConclusion()');
 
    if (conclusion=='anger') {
       if (edgeMatch) {
-         logRoom(sessionId, roomStack[roomStep], roomStep, 31);
+         logRoom(roomStack[roomStep], roomStep, 31);
          bindStuffToClickForMore(imageNumber,31);
          $('#step'+roomStep).append(outputGoto(31));
       }
       else {
-         logRoom(sessionId, roomStack[roomStep], roomStep, 22);
+         logRoom(roomStack[roomStep], roomStep, 22);
          bindStuffToClickForMore(imageNumber,22);
          $('#step'+roomStep).append(outputGoto(22));
       }
    } else { /* fear */
       if (edgeMatch) {
-         logRoom(sessionId, roomStack[roomStep], roomStep, 13);
+         logRoom(roomStack[roomStep], roomStep, 13);
          bindStuffToClickForMore(imageNumber,13);
          $('#step'+roomStep).append(outputGoto(13));
       }
       else {
-         logRoom(sessionId, roomStack[roomStep], roomStep, 17);
+         logRoom(roomStack[roomStep], roomStep, 17);
          bindStuffToClickForMore(imageNumber,17);
          $('#step'+roomStep).append(outputGoto(17));
       }
