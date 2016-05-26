@@ -149,6 +149,8 @@ function drawRoom() {//console.log('drawRoom()');
          whichGoTo=rooms[roomStack[roomStep]-1].otherGo;
       }
 
+      logRoom(sessionId, roomStack[roomStep], roomStep, whichGoTo);
+
       var whichGain;
 
       if (!isDown) { // draw ellipsis and goto text if appropriate
@@ -274,19 +276,23 @@ function drawConclusion() {//console.log('drawConclusion()');
 
    if (conclusion=='anger') {
       if (edgeMatch) {
+         logRoom(sessionId, roomStack[roomStep], roomStep, 31);
          bindStuffToClickForMore(imageNumber,31);
          $('#step'+roomStep).append(outputGoto(31));
       }
       else {
+         logRoom(sessionId, roomStack[roomStep], roomStep, 22);
          bindStuffToClickForMore(imageNumber,22);
          $('#step'+roomStep).append(outputGoto(22));
       }
    } else { /* fear */
       if (edgeMatch) {
+         logRoom(sessionId, roomStack[roomStep], roomStep, 13);
          bindStuffToClickForMore(imageNumber,13);
          $('#step'+roomStep).append(outputGoto(13));
       }
       else {
+         logRoom(sessionId, roomStack[roomStep], roomStep, 17);
          bindStuffToClickForMore(imageNumber,17);
          $('#step'+roomStep).append(outputGoto(17));
       }
