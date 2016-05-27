@@ -204,7 +204,7 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
             $('.clickForMore').next().removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
                $(this).next().removeClass('animated fadeIn');
                $('#continueButton').removeClass('animated fadeIn');
-					$('.step').css('padding-bottom', $('.fullBleed').height());
+               $('.step').css('padding-bottom', $('.fullBleed').height());
             });
          });
       });
@@ -212,6 +212,7 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
 }
 
 function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bindStuffToContinueButton()');
+   //logGoto(number, detail, answer1, answer2);
    if (isDown) {
       var animation='fadeOutDown';
    } else {
@@ -316,15 +317,16 @@ function outputGoto(entry) {//console.log('outputGoto()');
       case 'detail':
          retval = '<div class="hide">';
          retval += '<em>But there&rsquo;s something else&hellip;</em>';
-         retval += '<div class="detailCard">'+detailStack.pop()+'</div>';
-         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
+         var detailStackPosition=detailStack.length-1;
+         retval += '<div class="detailCard" data-detail-number="'+detailStackPosition+'">'+detailStack.pop()+'</div>';
+         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea class="a1"></textarea>';
          retval += '</div>';
          //incFearAnger(thisGoto.gain);
          break;
       case 'regular':
          retval = '<div class="hide">';
          retval += thisGoto.text;
-         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea></textarea>';
+         retval += '<p><strong>'+thisGoto.question+'</strong></p><textarea class="a1"></textarea>';
          retval += '</div>';
          //incFearAnger(thisGoto.gain);
          break;
@@ -337,9 +339,9 @@ function outputGoto(entry) {//console.log('outputGoto()');
       case 'double':
          retval = '<div class="hide double">';
          retval += thisGoto.text1;
-         retval += '<p><strong>'+thisGoto.question1+'</strong></p><textarea></textarea>';
+         retval += '<p><strong>'+thisGoto.question1+'</strong></p><textarea class="a1"></textarea>';
          retval += thisGoto.text2;
-         retval += '<p><strong>'+thisGoto.question2+'</strong></p><textarea></textarea>';
+         retval += '<p><strong>'+thisGoto.question2+'</strong></p><textarea class="a2"></textarea>';
          retval += '</div>';
          //incFearAnger(thisGoto.gain);
          break;
