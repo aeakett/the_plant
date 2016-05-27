@@ -160,7 +160,7 @@ function drawRoom() {//console.log('drawRoom()');
          whichGain=goto[whichGoTo-11].gain;
       } else { whichGain='none'; }
 
-      $('#step'+roomStep).append(drawContinueButton());
+      $('#step'+roomStep).append(drawContinueButton(whichGoTo));
       if (isDown){ $('#continueButton').removeClass('hide'); }
       bindStuffToContinueButton(roomStep, isDown, whichGain)
       
@@ -212,13 +212,20 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
 }
 
 function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bindStuffToContinueButton()');
-   //logGoto(number, detail, answer1, answer2);
    if (isDown) {
       var animation='fadeOutDown';
    } else {
       var animation='fadeOut';
    }
    $('#continueButton').on('click', Foundation.utils.debounce(function(){//console.log('continueButton.click');
+      var number = $('#continueButton').data('goto-number'); //console.log('goto number: '+number);
+      var detailNumber = $('#continueButton').parent().children('div').children('.detailCard').data('detail-number'); //console.log('detail number: '+detailNumber);
+      var answer1 = $('#continueButton').parent().children('div').children('.a1').val(); //console.log('answer 1: '+answer1);
+      var answer2 = $('#continueButton').parent().children('div').children('.a2').val(); //console.log('answer 2: '+answer2);
+      if (detailNumber==undefined) {detailNumber='~~~~';}
+      if (answer1==undefined) {answer1='~~~~';}
+      if (answer2==undefined) {answer2='~~~~';}
+      logGoto(number, detailNumber, answer1, answer2);
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('#plantImage .fullBleed').addClass('animated '+animation).one(animationEnd, function() {
          $(this).removeClass('animated '+animation);
@@ -304,8 +311,8 @@ function drawClickForMore() {//console.log('drawClickForMore()');
    return '<a class="clickForMore"><img src="img/dots.gif" style="height: 100px" /></a>';
 }
 
-function drawContinueButton() {
-   return '<br><button type="button" id="continueButton" class="hide">Keep searching</button><br><br><br><br><br>';
+function drawContinueButton(gotoNumber) {
+   return '<br><button type="button" id="continueButton" class="hide" data-goto-number="'+gotoNumber+'">Keep searching</button><br><br><br><br><br>';
 }
 
 function outputGoto(entry) {//console.log('outputGoto()');
