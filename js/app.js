@@ -18,6 +18,7 @@ var roomCandidates = [1,2,3,4,5,6,7,8,9,10];
 var detailStack = [];
 var detailStep=0;
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+var notes = [];
 
 $(document).ready(function() {//console.log('document ready');
    prepareRoomStack();
@@ -234,7 +235,7 @@ function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bind
          $(this).removeClass('animated '+animation);
          //console.log($('#step'+step).html());
          $('#step'+step).appendTo('#journal').off(); //the off() is to remove this event handler... all sorts of bad things happen without it
-         $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea id="note'+step+'" data-note-order="'+step+'" class="hide"></textarea></div><hr class="journalDivider" />');
+         $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea id="note'+step+'" data-note-order="'+step+'" class="journalNote hide"></textarea></div><hr class="journalDivider" />');
          $('#journal a.addNotes').on('click', Foundation.utils.debounce(function(){
             $(this).next().removeClass('hide').next().removeClass('hide');
             $(this).remove();
@@ -255,7 +256,15 @@ $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
 });
 
 function logNotes() {
-   console.log('some day, I will log all of those noes you just added');
+   notes=[];
+   $('#journal .journalNote').each(function() {
+      var thisNote = new Object();
+      thisNote.order = $(this).data('note-order');
+      thisNote.hidden = $(this).hasClass('hidden');
+      thisNote.text = $(this).val();
+      notes.push(thisNote);
+   });
+   $.post( "http://theplant-datacatcher.appspot.com/logNotes", { session: sessionId, json: JSON.stringify(notes) } );
 }
 
 function drawConclusion() {//console.log('drawConclusion()');
