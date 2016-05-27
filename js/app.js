@@ -204,7 +204,7 @@ function bindStuffToClickForMore(oldImage, newImage) {//console.log('bindStuffTo
             $('.clickForMore').next().removeClass('hide').addClass('animated fadeIn').one(animationEnd, function() {
                $(this).next().removeClass('animated fadeIn');
                $('#continueButton').removeClass('animated fadeIn');
-               $('.step').css('padding-bottom', $('.fullBleed').height());
+               $('#content .step').css('padding-bottom', $('.fullBleed').height());
             });
          });
       });
@@ -234,18 +234,28 @@ function bindStuffToContinueButton(step, isDown, whichGain) {//console.log('bind
          $(this).removeClass('animated '+animation);
          //console.log($('#step'+step).html());
          $('#step'+step).appendTo('#journal').off(); //the off() is to remove this event handler... all sorts of bad things happen without it
-         $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea class="hide"></textarea></div><hr class="journalDivider" />');
+         $('#journal').append('<div><a href="#" class="button tiny addNotes">add notes</a><p class="hide"><strong>Notes</strong></p><textarea id="note'+step+'" data-note-order="'+step+'" class="hide"></textarea></div><hr class="journalDivider" />');
          $('#journal a.addNotes').on('click', Foundation.utils.debounce(function(){
             $(this).next().removeClass('hide').next().removeClass('hide');
             $(this).remove();
          }, 300, true));
          $('#journal br').remove();
+         $('#journal .step').attr('style', '');
          $('#continueButton').remove();
          $('.clickForMore').remove();
          incFearAnger(whichGain);
          drawRoom();
       });
    }, 300, true));
+}
+
+$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+   //var modal = $(this);
+   logNotes();
+});
+
+function logNotes() {
+   console.log('some day, I will log all of those noes you just added');
 }
 
 function drawConclusion() {//console.log('drawConclusion()');
