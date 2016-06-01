@@ -1,6 +1,6 @@
-window.onerror = function(error) {
+/*window.onerror = function(error) {
     alert(error);
-};
+};*/
 
 $(document).foundation();
 
